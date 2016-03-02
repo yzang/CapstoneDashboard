@@ -1,0 +1,223 @@
+{% extends 'index.html' %}
+
+
+{% block page_header %}
+    <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Cransh Analysis</span> - Chart
+    </h4>
+    <ul class="breadcrumb breadcrumb-caret position-right">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Crash Analysis</a></li>
+    </ul>
+{% endblock %}
+
+{% block main-content %}
+    <div class="sidebar sidebar-main sidebar-default">
+            <form class="form-horizontal">
+                <div class="sidebar-content">
+
+                    <!-- Main navigation -->
+                    <div class="sidebar-category sidebar-category-visible">
+                        <div class="category-title h6">
+                            <span>Filters</span>
+                            <ul class="icons-list">
+                                <li><a href="#" data-action="collapse" class=""></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="category-content no-padding" style="display: block;">
+                            <ul class="navigation navigation-main navigation-accordion">
+                                <!-- Layout -->
+                                <li class="active">
+                                    <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
+                                        <span>Year</span></a>
+                                    <ul>
+                                        <div class="category-content sidebar-user">
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-2">From:</label>
+                                                <div class="col-lg-10">
+                                                    <select name="select" class="form-control">
+                                                        <option value="opt1">Please Choose</option>
+                                                        <option value="opt2">2011</option>
+                                                        <option value="opt3">2012</option>
+                                                        <option value="opt4">2013</option>
+                                                        <option value="opt5">2014</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-2">To:</label>
+                                                <div class="col-lg-10">
+                                                    <select name="select" class="form-control">
+                                                        <option value="opt1">Please Choose</option>
+                                                        <option value="opt2">2011</option>
+                                                        <option value="opt3">2012</option>
+                                                        <option value="opt4">2013</option>
+                                                        <option value="opt5">2014</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <!-- /layout -->
+                            </ul>
+                        </div>
+
+                        <div class="category-content no-padding" style="display: block;">
+                            <ul class="navigation navigation-main navigation-accordion">
+                                <!-- Layout -->
+                                <li class="active">
+                                    <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
+                                        <span>Month</span></a>
+                                    <ul>
+                                        <div class="category-content sidebar-user">
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-2">From:</label>
+                                                <div class="col-lg-10">
+                                                    <select name="select" class="form-control">
+                                                        <option value="opt1">Please Choose</option>
+                                                        <option value="opt2">2011</option>
+                                                        <option value="opt3">2012</option>
+                                                        <option value="opt4">2013</option>
+                                                        <option value="opt5">2014</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-2">To:</label>
+                                                <div class="col-lg-10">
+                                                    <select name="select" class="form-control">
+                                                        <option value="opt1">Please Choose</option>
+                                                        <option value="opt2">2011</option>
+                                                        <option value="opt3">2012</option>
+                                                        <option value="opt4">2013</option>
+                                                        <option value="opt5">2014</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <!-- /layout -->
+                            </ul>
+                        </div>
+
+                        <div class="category-content no-padding" style="display: block;">
+                            <ul class="navigation navigation-main navigation-accordion">
+                                <!-- Layout -->
+                                <li class="active">
+                                    <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
+                                        <span>Vehicle</span></a>
+                                    <ul>
+                                        <div class="category-content sidebar-user">
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-2">Type:</label>
+                                                <div class="col-lg-10">
+                                                    <select name="select" class="form-control">
+                                                        <option value="opt1">Please Choose</option>
+                                                        <option value="opt2">1</option>
+                                                        <option value="opt3">2</option>
+                                                        <option value="opt4">3</option>
+                                                        <option value="opt5">4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-2">Num:</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" type="number" name="number">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </ul>
+                                </li>
+                                <!-- /layout -->
+                            </ul>
+                        </div>
+
+                        <div class="sidebar-category">
+                            <div class="category-title">
+                                <span>Action buttons</span>
+                                <ul class="icons-list">
+                                    <li><a href="#" data-action="collapse"></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="category-content">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <button class="btn bg-primary-400 btn-block btn-float btn-float-lg"
+                                                type="button"><i class="fa fa-check"></i> <span>Apply</span></button>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <button class="btn bg-purple-300 btn-block btn-float btn-float-lg"
+                                                type="button"><i class="fa fa-refresh"></i> <span>Reset</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /main navigation -->
+                </div>
+            </form>
+
+        </div>
+    <div class="content-wrapper">
+    <!-- Combination and connection -->
+				<div class="panel panel-flat">
+					<div class="">
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="chart-container">
+									<div class="chart has-fixed-height" id="connect_pie"></div>
+								</div>
+							</div>
+
+							<div class="col-lg-6">
+								<div class="chart-container">
+									<div class="chart has-fixed-height" id="connect_column"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /combination and connection -->
+
+    <!-- Line and bar combination -->
+				<div class="panel panel-flat">
+					<div class="">
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<div class="panel-body">
+						<div class="chart-container">
+							<div class="chart has-fixed-height" id="line_bar"></div>
+						</div>
+					</div>
+				</div>
+				<!-- /line and bar combination -->
+    </div>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/echarts.js"></script>
+    <script type="text/javascript" src="/static/assets/js/charts/echarts/combinations.js"></script>
+{% endblock %}

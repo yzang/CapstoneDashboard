@@ -1,0 +1,113 @@
+{% extends 'index.html' %}
+
+{% block page_header %}
+    <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Google Maps</span> - Layers</h4>
+    <ul class="breadcrumb breadcrumb-caret position-right">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="maps_google_layers.html">Maps</a></li>
+    </ul>
+{% endblock %}
+
+{% block main-content %}
+    <!-- Main content -->
+			<div class="content-wrapper">
+
+				<!-- Traffic layer -->
+				<div class="panel panel-flat">
+					<div class="panel-heading">
+						<h5 class="panel-title">Traffic layer</h5>
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<div class="panel-body">
+						<p class="content-group">The Google Maps API allows you to add real-time traffic information (where supported) to your maps using the <code>TrafficLayer</code> object. Traffic information is provided for the time at which the request is made. Google Maps shows current color-coded traffic conditions on highways and roads where data is available: green means that traffic conditions are good, yellow means fair, and red or red/black means poor traffic conditions.</p>
+
+						<div class="map-container map-layer-traffic"></div>
+					</div>
+				</div>
+				<!-- /traffic layer -->
+
+
+				<!-- Transit layer -->
+				<div class="panel panel-flat">
+					<div class="panel-heading">
+						<h5 class="panel-title">Transit layer</h5>
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<div class="panel-body">
+						<p class="content-group">The Google Maps API allows you to display the <code>public transit</code> network of a city on your map using the <code>TransitLayer</code> object. When the Transit Layer is enabled, and the map is centered on a city that supports transit information, the map will display major transit lines as thick, colored lines. The color of the line is set based upon information from the transit line operator. Enabling the Transit Layer will alter the style of the base map to better emphasize transit routes.</p>
+
+						<div class="map-container map-layer-transit"></div>
+					</div>
+				</div>
+				<!-- /transit layer -->
+
+
+				<!-- Bicycle layer -->
+				<div class="panel panel-flat">
+					<div class="panel-heading">
+						<h5 class="panel-title">Bicycle layer</h5>
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<div class="panel-body">
+						<p class="content-group">The Google Maps API allows you to add <code>bicycle information</code> to your maps using the <code>BicyclingLayer</code> object. The BicyclingLayer renders a layer of bike paths, suggested bike routes and other overlays specific to bicycling usage on top of the given map. Additionally, the layer alters the style of the base map itself to emphasize streets supporting bicycle routes and de-emphasize streets inappropriate for bicycles.</p>
+
+						<div class="map-container map-layer-bicycling"></div>
+					</div>
+				</div>
+				<!-- /bicycle layer -->
+
+
+				<!-- Fusion tables -->
+				<div class="panel panel-flat">
+					<div class="panel-heading">
+						<h5 class="panel-title">Fusion tables</h5>
+						<div class="heading-elements">
+							<ul class="icons-list">
+		                		<li><a data-action="collapse"></a></li>
+		                		<li><a data-action="reload"></a></li>
+		                		<li><a data-action="close"></a></li>
+		                	</ul>
+	                	</div>
+					</div>
+
+					<div class="panel-body">
+						<p class="content-group">The Google Maps API allows you to render data contained in Google <code>Fusion Tables</code> as a layer on a map using the <code>FusionTablesLayer</code> object. A Google Fusion Table is a database table where each row contains data about a particular feature; for geographic data, each row within a Google Fusion Table additionally contains location data, holding a feature’s positional information.</p>
+
+						<div class="map-container map-layer-fusion-tables"></div>
+					</div>
+				</div>
+				<!-- /fusion tables -->
+
+			</div>
+			<!-- /main content -->
+
+    <!-- Theme JS files -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+	<script src="https://ssl.panoramio.com/wapi/wapi.js?v=1"></script>
+	<script type="text/javascript" src="/static/assets/js/maps/google/layers/traffic.js"></script>
+	<script type="text/javascript" src="/static/assets/js/maps/google/layers/transit.js"></script>
+	<script type="text/javascript" src="/static/assets/js/maps/google/layers/bicycling.js"></script>
+	<script type="text/javascript" src="/static/assets/js/maps/google/layers/fusion_tables.js"></script>
+	<!-- /theme JS files -->
+{% endblock %}

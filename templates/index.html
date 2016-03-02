@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Limitless - Responsive Web Application Kit</title>
+
+    <!-- Global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+          type="text/css">
+    <link href="/static/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="/static/assets/css/icons/fontawesome/styles.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/assets/css/minified/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/assets/css/minified/core.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/assets/css/minified/components.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/assets/css/minified/colors.min.css" rel="stylesheet" type="text/css">
+    <!-- /global stylesheets -->
+
+    <!-- Core JS files -->
+    <script type="text/javascript" src="/static/assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/loaders/blockui.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/ui/nicescroll.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/ui/drilldown.js"></script>
+    <!-- /core JS files -->
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script type="text/javascript" src="/static/assets/js/core/app.js"></script>
+
+    <!-- /theme JS files -->
+
+</head>
+
+<body class=" pace-done">
+
+<!-- Main navbar -->
+<div class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Capstone - City of Philadelphia</a>
+
+        <ul class="nav navbar-nav pull-right visible-xs-block">
+            <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="navbar-collapse collapse" id="navbar-mobile">
+
+        <ul class="nav navbar-nav no-border visible-xs-block">
+            <li><a class="text-center collapsed" data-toggle="collapse" data-target="#navbar-second-toggle"><i
+                    class="icon-menu7"></i></a></li>
+        </ul>
+
+        <div class="navbar-collapse collapse" id="navbar-second-toggle">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'home' %}"><i class="icon-display4 position-left"></i> Dashboard</a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-chart position-left"></i> Data Visualization <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu width-200">
+                        <li class="dropdown-header">Charts & Map</li>
+                        <li><a href="{% url 'crash' %}"><i class="fa fa-bar-chart"></i>Crash Analysis</a></li>
+                        <li><a href="{% url 'google_map' %}"><i class="icon-map"></i></i>Map</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-cloud position-left"></i> Data Management <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu width-200">
+                        <li class="dropdown-header">Data source & Metadata</li>
+                        <li class="dropdown-submenu">
+                            <a href="#"><i class="icon-database"></i>Datasource</a>
+                            <ul class="dropdown-menu width-200">
+                                <li class="dropdown-header highlight">Options</li>
+                                <li><a href="{% url 'upload' %}"><i class="icon-database-upload"></i>Upload file</a>
+                                </li>
+                                <li><a href="#"><i class="fa fa-table"></i> Data table</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a href="#"><i class="fa fa-tags"></i>Metadata</a>
+                            <ul class="dropdown-menu width-200">
+                                <li class="dropdown-header highlight">Options</li>
+                                <li><a href="#"><i class="icon-file-excel"></i> Import from csv</a>
+                                </li>
+                                <li><a href="#"><i class="icon-sync"></i> Update metadata</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-users position-left"></i> User <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu width-200">
+                        <li class="dropdown-header highlight">Options</li>
+                        <li><a href="#"><i class="icon-user"></i>Profile</a></li>
+                        <li><a href="#"><i class="icon-exit"></i>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- /main navbar -->
+
+
+<!-- Page header -->
+<div class="page-header">
+    <div class="page-header-content">
+        <div class="page-title">
+            {% block page_header %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+<!-- /page header -->
+
+
+<!-- Page container -->
+<div class="page-container">
+    <!-- Page content -->
+    <div class="page-content">
+        <!-- Main content -->
+
+        {% block main-content %}
+        {% endblock %}
+        <!-- /main content -->
+
+    </div>
+    <!-- /page content -->
+
+
+    <!-- Footer -->
+    <div class="footer text-muted">
+        &copy; 2016. <a href="#">Capstone Project</a> by <a href="#" target="_blank">Carnegie Mellon University</a>
+    </div>
+    <!-- /footer -->
+
+</div>
+<!-- /page container -->
+
+</body>
+</html>
