@@ -12,12 +12,6 @@
 $(function() {
 
 
-    // ========================================
-    //
-    // Layout
-    //
-    // ========================================
-
 
     // Calculate page container height
     // -------------------------
@@ -53,26 +47,7 @@ $(function() {
 
 
 
-    // Breadcrumb elements toggler
-    // -------------------------
 
-    // Add control button toggler to breadcrumbs if has elements
-    $('.breadcrumb-line').has('.breadcrumb-elements').append('<a class="breadcrumb-elements-toggle"><i class="icon-menu-open"></i></a>');
-
-
-    // Toggle visible state of breadcrumb elements
-    $('.breadcrumb-elements-toggle').on('click', function() {
-        $(this).parent().children('.breadcrumb-elements').toggleClass('visible');
-    });
-
-
-
-
-    // ========================================
-    //
-    // Navbar
-    //
-    // ========================================
 
 
     // Navbar navigation
@@ -96,26 +71,7 @@ $(function() {
 
 
 
-    // Drill down menu
-    // ------------------------------
 
-    // If menu has child levels, add selector class
-    $('.menu-list').find('li').has('ul').parents('.menu-list').addClass('has-children');
-
-    // Attach drill down menu to menu list with child levels
-    $('.has-children').dcDrilldown({
-        defaultText: 'Back to parent',
-        saveState: true
-    });
-
-
-
-
-    // ========================================
-    //
-    // Element controls
-    //
-    // ========================================
 
 
     // Reload elements
@@ -147,62 +103,6 @@ $(function() {
     });
 
 
-    // Sidebar categories
-    $('.category-title [data-action=reload]').click(function (e) {
-        e.preventDefault();
-        var block = $(this).parent().parent().parent().parent();
-        $(block).block({ 
-            message: '<i class="icon-spinner2 spinner"></i>',
-            overlayCSS: {
-                backgroundColor: '#000',
-                opacity: 0.5,
-                cursor: 'wait',
-                'box-shadow': '0 0 0 1px #000'
-            },
-            css: {
-                border: 0,
-                padding: 0,
-                backgroundColor: 'none',
-                color: '#fff'
-            }
-        });
-
-        // For demo purposes
-        window.setTimeout(function () {
-           $(block).unblock();
-        }, 2000); 
-    }); 
-
-
-    // Light sidebar categories
-    $('.sidebar-default .category-title [data-action=reload]').click(function (e) {
-        e.preventDefault();
-        var block = $(this).parent().parent().parent().parent();
-        $(block).block({ 
-            message: '<i class="icon-spinner2 spinner"></i>',
-            overlayCSS: {
-                backgroundColor: '#fff',
-                opacity: 0.8,
-                cursor: 'wait',
-                'box-shadow': '0 0 0 1px #ddd'
-            },
-            css: {
-                border: 0,
-                padding: 0,
-                backgroundColor: 'none'
-            }
-        });
-
-        // For demo purposes
-        window.setTimeout(function () {
-           $(block).unblock();
-        }, 2000); 
-    }); 
-
-
-
-    // Collapse elements
-    // -------------------------
 
     //
     // Sidebar categories
@@ -214,7 +114,6 @@ $(function() {
 
     // Rotate icon if collapsed by default
     $('.category-collapsed').find('[data-action=collapse]').addClass('rotate-180');
-
 
     // Collapse on click
     $('.category-title [data-action=collapse]').click(function (e) {
@@ -308,7 +207,7 @@ $(function() {
     // Add active state to all dropdown parent levels
     $('.dropdown-menu:not(.dropdown-content), .dropdown-menu:not(.dropdown-content) .dropdown-submenu').has('li.active').addClass('active').parents('.navbar-nav .dropdown, .navbar-nav .dropup').addClass('active');
 
-    
+
 
     // Main navigation tooltips positioning
     // -------------------------
@@ -337,7 +236,7 @@ $(function() {
         }
     });
 
-        
+
     // Alternate navigation
     $('.navigation-alt').find('li').has('ul').children('a').on('click', function (e) {
         e.preventDefault();
@@ -349,7 +248,7 @@ $(function() {
         if ($('.navigation-alt').hasClass('navigation-accordion')) {
             $(this).parent('li').not('.disabled').siblings(':has(.has-ul)').removeClass('active').children('ul').slideUp(200);
         }
-    }); 
+    });
 
 
 
@@ -446,7 +345,7 @@ $(function() {
 
         // Opposite sidebar visibility
         $('body').toggleClass('sidebar-opposite-visible');
-        
+
         // If visible
         if ($('body').hasClass('sidebar-opposite-visible')) {
 
@@ -586,24 +485,5 @@ $(function() {
         }, 100);
     }).resize();
 
-
-
-
-    // ========================================
-    //
-    // Other code
-    //
-    // ========================================
-
-
-    // Plugins
-    // -------------------------
-
-    // Popover
-    $('[data-popup="popover"]').popover();
-
-
-    // Tooltip
-    $('[data-popup="tooltip"]').tooltip();
 
 });
