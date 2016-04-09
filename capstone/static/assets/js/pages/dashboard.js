@@ -2,6 +2,18 @@
  * Created by Yiming on 3/27/2016.
  */
 $(function () {
+    google.maps.event.addDomListener(window, 'load', init);
+    function init() {
+        $.getJSON('/static/assets/demo_data/data.json').done(function (json) {
+            offersMapInit("map", json);
+        })
+    }
+
+    //initialize the map size
+    var mapHeight=$('#mapPanel').css('height')
+    console.log(mapHeight)
+    $('#map').css('height',mapHeight)
+
     var customNouiToolTipYear = $.Link({
         target: '-tooltip-<div class="noui-tooltip"></div>',
         method: function (value) {
@@ -26,7 +38,7 @@ $(function () {
     var customNouiToolTipMonth = $.Link({
         target: '-tooltip-<div class="noui-tooltip"></div>',
         method: function (value) {
-            $(this).html('<span class="text-semibold">' + months[value-1] + '</span>');
+            $(this).html('<span class="text-semibold">' + months[value - 1] + '</span>');
         }
     });
 

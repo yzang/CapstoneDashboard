@@ -126,44 +126,37 @@
 
     </div>
     <div class="content-wrapper">
-        <div class="panel panel-flat">
-
-
-            <div class="">
-                <div class="chart-container">
-                    <div id="map" style="height: 500px;"></div>
-                </div>
-            </div>
-        </div>
-        <!-- /combination and connection -->
-
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title text-semibold">Vehicle Type Analysis</h6>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6">
+        <div class="row" id="mapPanel">
+            <div class="col-md-6">
+                <div class="panel panel-flat no-margin-bottom">
+                    <div class="panel-heading">
+                        <h6 class="panel-title text-semibold">Vehicle Type Analysis</h6>
+                        <div class="heading-elements">
+                            <ul class="icons-list">
+                                <li><a data-action="collapse"></a></li>
+                                <li><a data-action="reload"></a></li>
+                                <li><a data-action="close"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel-body ">
                         <div class="chart-container">
                             <div class="chart has-fixed-height" id="connect_pie"></div>
                         </div>
                     </div>
-
-                    <div class="col-lg-6">
+                    <div class="panel-body">
                         <div class="chart-container">
                             <div class="chart has-fixed-height" id="connect_column"></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">
+                <div class="panel panel-flat">
+                        <div id="map"></div>
+                </div>
+            </div>
+            <!-- /combination and connection -->
         </div>
         <!-- /combination and connection -->
 
@@ -190,8 +183,9 @@
     </div>
     <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/echarts.js"></script>
     <!-- Google Maps -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&amp;language=en"></script>
-     <script type="text/javascript" src="/static/assets/js/plugins/map/infobox.min.js"></script>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&amp;language=en"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/map/infobox.min.js"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/map/markerCluster.min.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/chart.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/dashboard.js"></script>
@@ -199,11 +193,6 @@
 
     <!-- google maps initialization -->
     <script type="text/javascript">
-        google.maps.event.addDomListener(window, 'load', init);
-        function init() {
-            $.getJSON('/static/assets/demo_data/data.json').done(function (json) {
-                offersMapInit("map", json);
-            })
-        }
+
     </script>
 {% endblock %}
