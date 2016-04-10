@@ -12,14 +12,12 @@ class Crash(models.Model):
     month=models.IntegerField()
     # DAY_OF_WEEK
     day=models.IntegerField()
-    # LATITUDE
-    lat=models.FloatField()
-    # LONGITUDE
-    lng=models.FloatField()
+    # HOUR_OF_DAY
+    hour=models.IntegerField()
     # INTERSECT_TYPE
-    intersect_type=models.CharField(30)
+    intersect_type=models.CharField(max_length=30)
     # COLLISION_TYPE
-    collision_type=models.CharField(30)
+    collision_type=models.CharField(max_length=30)
     # AUTOMOBILE_COUNT
     automobile_count=models.IntegerField()
     # MOTORCYCLE_COUNT
@@ -70,6 +68,11 @@ class Crash(models.Model):
     max_severity_level=models.IntegerField()
     # INTERSECTION
     has_intersection=models.BooleanField()
+    # LATITUDE
+    lat=models.FloatField()
+    # LONGITUDE
+    lng=models.FloatField()
+
     def __str__(self):
         return self.crn
 
@@ -86,5 +89,6 @@ class Person(models.Model):
     person_type=models.CharField(max_length=30)
     # RESTRAINT_HELMET
     restraint_helmet=models.CharField(max_length=30)
+    
     def __str__(self):
         return self.crn

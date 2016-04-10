@@ -1,0 +1,14 @@
+# To load data from csv to database:
+1. import_person_csv.py
+2. import_crash_csv.py
+
+# To clean the data
+1. delete db.sqlite3 file
+2. open terminal and cd to project dir
+3. python manage.py migrate
+
+# To execute queries
+1. open terminal and cd to project dir
+2. python manage.py shell
+3. from capstone.models import *
+4. Execute queries you like (e.g. Crash.objects.count())
