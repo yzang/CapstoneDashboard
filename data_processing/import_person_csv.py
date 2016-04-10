@@ -5,7 +5,6 @@ from django.core.wsgi import get_wsgi_application
 
 '''
 This file is used to load json data into the Django database
-Input: standard input with json format
 '''
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CapstoneDashboard.settings'
 
