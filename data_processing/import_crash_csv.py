@@ -13,7 +13,7 @@ if __name__ == '__main__':
     application = get_wsgi_application()
     from capstone.models import *
 
-    with open("CrashClean_final.csv", "rb") as infile:
+    with open("CrashClean_final.csv", "rU") as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         crash_list = []
@@ -33,7 +33,7 @@ if __name__ == '__main__':
                         bus_count=bus_count,small_truck_count=small_truck_count,heavy_truck_count=heavy_truck_count,
                         suv_count=suv_count,van_count=van_count,bicycle_count=bicycle_count,fatal_count=fatal_count,
                         injury_count=injury_count,maj_inj_count=maj_inj_count,sev_inj_count=sev_inj_count,
-                        mcycle_death_count=mcycle_death_count,mcycle_maj_inj_coun=mcycle_maj_inj_count,
+                        mcycle_death_count=mcycle_death_count,mcycle_maj_inj_count=mcycle_maj_inj_count,
                         mcycle_sev_inj_count=mcycle_sev_inj_count,bicycle_death_count=bicycle_death_count,
                         bicycle_maj_inj_count=bicycle_maj_inj_count,bicycle_sev_inj_count=bicycle_sev_inj_count,
                         ped_count=ped_count,ped_death_count=ped_death_count,ped_maj_inj_count=ped_maj_inj_count,
@@ -41,5 +41,5 @@ if __name__ == '__main__':
                         max_severity_level=max_severity_level,has_intersection=intersection,lat=lat,lng=lng)
             crash_list.append(crash)
             print row
-        Person.objects.bulk_create(crash_list)
+        Crash.objects.bulk_create(crash_list)
     print "Load data complete"

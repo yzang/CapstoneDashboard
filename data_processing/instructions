@@ -11,4 +11,4 @@
 1. open terminal and cd to project dir
 2. python manage.py shell
 3. from capstone.models import *
-4. Execute queries you like (e.g. Crash.objects.count())
+4. Execute queries you like (e.g. Person.objects.count()  or  Crash.objects.filter(year=2011).count())

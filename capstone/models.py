@@ -65,9 +65,9 @@ class Crash(models.Model):
     # COMM_VEH_COUNT
     comm_veh_count=models.IntegerField()
     # MAX_SEVERITY_LEVEL
-    max_severity_level=models.IntegerField()
+    max_severity_level=models.CharField(max_length=30)
     # INTERSECTION
-    has_intersection=models.BooleanField()
+    has_intersection=models.CharField(max_length=10)
     # LATITUDE
     lat=models.FloatField()
     # LONGITUDE
