@@ -108,12 +108,6 @@ $(function() {
     // Sidebar categories
     //
 
-    // Hide if collapsed by default
-    $('.category-collapsed').children('.category-content').hide();
-
-
-    // Rotate icon if collapsed by default
-    $('.category-collapsed').find('[data-action=collapse]').addClass('rotate-180');
 
     // Collapse on click
     $('.category-title [data-action=collapse]').click(function (e) {
@@ -121,9 +115,7 @@ $(function() {
         var $categoryCollapse = $(this).parent().parent().parent().nextAll();
         $(this).parents('.category-title').toggleClass('category-collapsed');
         $(this).toggleClass('rotate-180');
-
         containerHeight(); // adjust page height
-
         $categoryCollapse.slideToggle(150);
     });
 
@@ -139,18 +131,6 @@ $(function() {
     // Rotate icon if collapsed by default
     $('.panel-collapsed').find('[data-action=collapse]').children('i').addClass('rotate-180');
 
-
-    // Collapse on click
-    $('.panel [data-action=collapse]').click(function (e) {
-        e.preventDefault();
-        var $panelCollapse = $(this).parent().parent().parent().parent().nextAll();
-        $(this).parents('.panel').toggleClass('panel-collapsed');
-        $(this).toggleClass('rotate-180');
-
-        containerHeight(); // recalculate page height
-
-        $panelCollapse.slideToggle(150);
-    });
 
 
 
@@ -170,53 +150,7 @@ $(function() {
     });
 
 
-    // Sidebar categories
-    $('.category-title [data-action=close]').click(function (e) {
-        e.preventDefault();
-        var $categoryClose = $(this).parent().parent().parent().parent();
 
-        containerHeight(); // recalculate page height
-
-        $categoryClose.slideUp(150, function() {
-            $(this).remove();
-        });
-    });
-
-
-
-
-    // ========================================
-    //
-    // Main navigation
-    //
-    // ========================================
-
-
-    // Main navigation
-    // -------------------------
-
-    // Add 'active' class to parent list item in all levels
-    $('.navigation').find('li.active').parents('li').addClass('active');
-
-    // Hide all nested lists
-    $('.navigation').find('li').not('.active, .category-title').has('ul').children('ul').addClass('hidden-ul');
-
-    // Highlight children links
-    $('.navigation').find('li').has('ul').children('a').addClass('has-ul');
-
-    // Add active state to all dropdown parent levels
-    $('.dropdown-menu:not(.dropdown-content), .dropdown-menu:not(.dropdown-content) .dropdown-submenu').has('li.active').addClass('active').parents('.navbar-nav .dropdown, .navbar-nav .dropup').addClass('active');
-
-
-
-    // Main navigation tooltips positioning
-    // -------------------------
-
-    // Left sidebar
-    $('.navigation-main > .navigation-header > i').tooltip({
-        placement: 'right',
-        container: 'body'
-    });
 
 
 

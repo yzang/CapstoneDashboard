@@ -62,5 +62,14 @@ $(function () {
 
     })
 
+    var hidden=false
+    $('#btn-collapse-sidebar').click(function(){
+        if(!hidden){
+            $('#div-sidebar').hide()
+        } else {
+            $('#div-sidebar').show()
+        }
+        hidden=!hidden
+    })
 
 })

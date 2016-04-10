@@ -1,5 +1,8 @@
 {% extends 'index.html' %}
 
+{% block toggle-btn %}
+<a class="navbar-brand" id="btn-collapse-sidebar"><i class="fa fa-align-justify"></i></a>
+{% endblock %}
 
 {% block page_header %}
     <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Crash Analysis</span> - Chart
@@ -11,7 +14,7 @@
 {% endblock %}
 
 {% block main-content %}
-    <div class="sidebar sidebar-main sidebar-default">
+    <div class="sidebar sidebar-main sidebar-default" id="div-sidebar">
         <form class="form-horizontal">
             <div class="sidebar-content">
                 <!-- Main navigation -->
