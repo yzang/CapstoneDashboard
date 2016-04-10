@@ -24,4 +24,4 @@ if __name__ == '__main__':
             person_list.append(person)
             print row
         Person.objects.bulk_create(person_list)
-    print ":oad data complete"
+    print "Load data complete"

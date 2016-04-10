@@ -28,9 +28,18 @@ if __name__ == '__main__':
             bicycle_maj_inj_count, bicycle_sev_inj_count, ped_count, ped_death_count, \
             ped_maj_inj_count, ped_sev_inj_count, comm_veh_count, \
             max_severity_level, intersection, lat, lng = row
-
-            person = Person(crn=crn, year=year, sex=sex, age=age, person_type=person_type, restraint_helmet=helmet)
+            crash=Crash(crn=crn,year=year,month=month,day=day,hour=hour,intersect_type=intersect_type,
+                        collision_type=collision_type,automobile_count=automobile_count,motorcycle_count=motorcycle_count,
+                        bus_count=bus_count,small_truck_count=small_truck_count,heavy_truck_count=heavy_truck_count,
+                        suv_count=suv_count,van_count=van_count,bicycle_count=bicycle_count,fatal_count=fatal_count,
+                        injury_count=injury_count,maj_inj_count=maj_inj_count,sev_inj_count=sev_inj_count,
+                        mcycle_death_count=mcycle_death_count,mcycle_maj_inj_coun=mcycle_maj_inj_count,
+                        mcycle_sev_inj_count=mcycle_sev_inj_count,bicycle_death_count=bicycle_death_count,
+                        bicycle_maj_inj_count=bicycle_maj_inj_count,bicycle_sev_inj_count=bicycle_sev_inj_count,
+                        ped_count=ped_count,ped_death_count=ped_death_count,ped_maj_inj_count=ped_maj_inj_count,
+                        ped_sev_inj_count=ped_sev_inj_count,comm_veh_count=comm_veh_count,
+                        max_severity_level=max_severity_level,has_intersection=intersection,lat=lat,lng=lng)
             crash_list.append(crash)
             print row
-        Person.objects.bulk_create(person_list)
-    print ":oad data complete"
+        Person.objects.bulk_create(crash_list)
+    print "Load data complete"

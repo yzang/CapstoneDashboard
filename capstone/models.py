@@ -37,7 +37,7 @@ class Crash(models.Model):
     # FATAL_COUNT
     fatal_count=models.IntegerField()
     # INJURY_COUNT
-    injuery_count=models.IntegerField()
+    injury_count=models.IntegerField()
     # MAJ_INJ_COUNT
     maj_inj_count=models.IntegerField()
     # SEV_INJ_COUNT
@@ -89,6 +89,6 @@ class Person(models.Model):
     person_type=models.CharField(max_length=30)
     # RESTRAINT_HELMET
     restraint_helmet=models.CharField(max_length=30)
-    
+
     def __str__(self):
         return self.crn
