@@ -355,6 +355,19 @@ $(function () {
                     connect_column.resize();
                 }, 200);
             }
+
+             var hidden=false
+            $('#btn-collapse-sidebar').click(function(){
+                if(!hidden){
+                    $('#div-sidebar').hide()
+                } else {
+                    $('#div-sidebar').show()
+                }
+                line_bar.resize();
+                connect_pie.resize();
+                connect_column.resize();
+                hidden=!hidden
+            })
         }
     );
 });
