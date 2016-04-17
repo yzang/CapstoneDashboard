@@ -10,6 +10,11 @@ def getCrashByYearRange(year_from,year_to):
     crash_list=Crash.objects.filter(year__gte=year_from,year__lte=year_to)
     return crash_list
 
+#Q poster. where are crash with major severity happens?
+def getMajCrash(year):
+    crash_list=Crash.objects.filter(year=year,maj_inj_count>0)
+    return crash_list
+
 #Q1.Where are pedestrians being hit?    
 def getPedestrianHit(year):
     crash_list=Crash.objects.filter(year=year,ped_count>0)
