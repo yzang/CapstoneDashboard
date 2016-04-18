@@ -11,7 +11,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'CapstoneDashboard.settings'
 if __name__ == '__main__':
     application = get_wsgi_application()
     from capstone.models import *
-    with open("person_final.csv", "rb") as infile:
+    with open("./person_final.csv", "rb") as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         person_list=[]

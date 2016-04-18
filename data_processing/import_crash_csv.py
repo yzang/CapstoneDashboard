@@ -12,7 +12,7 @@ if __name__ == '__main__':
     application = get_wsgi_application()
     from capstone.models import *
 
-    with open("Crash_All.csv", "rU") as infile:
+    with open("./Crash_All.csv", "rU") as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         crash_list = []
