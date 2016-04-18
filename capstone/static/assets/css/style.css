@@ -98,5 +98,5 @@ dd {
 }
 
 .multiselect.btn-default, .multiselect.btn-default.disabled{
-    border:solid 1px;
+    border:solid 1px grey;
 }
