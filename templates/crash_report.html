@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 
 {% block toggle-btn %}
-<a class="navbar-brand" id="btn-collapse-sidebar"><i class="fa fa-align-justify"></i></a>
+    <a class="navbar-brand" id="btn-collapse-sidebar"><i class="fa fa-align-justify"></i></a>
 {% endblock %}
 
 {% block page_header %}
@@ -156,7 +156,7 @@
             </div>
             <div class="col-md-6">
                 <div class="panel panel-flat">
-                        <div id="map"></div>
+                    <div id="map"></div>
                 </div>
             </div>
             <!-- /combination and connection -->
@@ -196,6 +196,16 @@
 
     <!-- google maps initialization -->
     <script type="text/javascript">
-
+        google.maps.event.addDomListener(window, 'load', init);
+        function init() {
+            $.ajax({
+                url:'/capstone/api/getMajorOrFatal',
+                method:'get',
+                dataType:'json',
+                success:function(data){
+                    offersMapInit("map", data);
+                }
+            })
+        }
     </script>
 {% endblock %}

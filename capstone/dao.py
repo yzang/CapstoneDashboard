@@ -1,6 +1,7 @@
 #put all the queries here
 from capstone.models import Crash
-from django.db.models import Avg, Max, Min
+from django.db.models import Avg, Max, Min, Q
+
 
 def getCrashByYear(year):
     crash_list=Crash.objects.filter(year=year)
@@ -10,6 +11,11 @@ def getCrashByYearRange(year_from,year_to):
     crash_list=Crash.objects.filter(year__gte=year_from,year__lte=year_to)
     return crash_list
 
+def getMajFatalCrash():
+    crash_list=Crash.objects.filter(Q(maj_inj_count__gt=0)| Q(fatal_count__gt=0))
+    return crash_list
+
+'''
 #Q poster. where are crash with major severity happens?
 def getMajCrash(year):
     crash_list=Crash.objects.filter(year=year,maj_inj_count>0)
@@ -75,3 +81,4 @@ def getCrashByIntersect(year):
     crash_list[8]=Crash.objects.filter(year=year,intersect_type=8).aggregate(cross_over=Avg(age))
     crash_list[9]=Crash.objects.filter(year=year,intersect_type=9).aggregate(railroad=Avg(age))
     return crash_list
+'''

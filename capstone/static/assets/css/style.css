@@ -19,3 +19,80 @@ body {
 .row-250{
     height:250px;
 }
+
+
+/************** Infobox *******************/
+.infobox {
+    -moz-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    display: table;
+    width: 520px;
+}
+
+.infobox article {
+    margin-bottom: 20px;
+}
+
+.infobox article:last-child {
+    margin-bottom: 0;
+}
+
+.infobox dl {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.infobox h1 {
+    color: #fff;
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.infobox h2 {
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.infobox h2 span {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=60);
+    opacity: 0.6;
+}
+
+.infobox h3 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.infobox p {
+    font-size: 12px;
+}
+
+.infobox .right {
+    padding: 15px;
+}
+
+.infobox .left {
+    padding: 15px;
+}
+
+.infobox .left, .infobox .right {
+    display: table-cell;
+    width: 260px;
+}
+
+dl {
+    margin-bottom: 0;
+}
+
+dd {
+    margin-bottom: 5px;
+}

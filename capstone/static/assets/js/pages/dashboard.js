@@ -2,16 +2,10 @@
  * Created by Yiming on 3/27/2016.
  */
 $(function () {
-    google.maps.event.addDomListener(window, 'load', init);
-    function init() {
-        $.getJSON('/static/assets/demo_data/data.json').done(function (json) {
-            offersMapInit("map", json);
-        })
-    }
+
 
     //initialize the map size
     var mapHeight=$('#mapPanel').css('height')
-    console.log(mapHeight)
     $('#map').css('height',mapHeight)
 
     var customNouiToolTipYear = $.Link({

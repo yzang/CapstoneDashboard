@@ -26,7 +26,6 @@ var mapStyle = [{
 var usLat=39.952584
 var usLng=-75.165222
 function offersMapInit(id, locations) {
-    console.log(locations)
     var mapOptions = {
         zoom: 12,
         disableDefaultUI: false,
@@ -65,19 +64,9 @@ function offersMapInit(id, locations) {
 
         mapMarkers[i] = marker;
 
-        var infoBoxContent = document.createElement("div");
-        infoBoxContent.className = "infobox-wrapper";
-        infoBoxContent.innerHTML = "";
-        mapMarkers[i].infobox = new InfoBox({
-            content: infoBoxContent,
-            disableAutoPan: false,
-            pixelOffset: new google.maps.Size(25, -145),
-            zIndex: null,
-            boxStyle: {},
-            closeBoxMargin: "0px",
-            closeBoxURL: "/static/images/infobox-close.png",
-            infoBoxClearance: new google.maps.Size(1, 1)
-        });
+        mapMarkers[i].infobox = new google.maps.InfoWindow({
+			content: locations[i].crn
+		});
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
                 var j = 0;
@@ -91,15 +80,27 @@ function offersMapInit(id, locations) {
     }
 
 
-    var markerClusterStyle = [{
-        url: '/static/assets/images/pin-empty.png',
-        height: 80,
-        width: 48,
-        textSize: 16,
-        textColor: '#3798dd'
-    }];
+    var markerClusterStyle = [
+        {
+        textColor: 'black',
+        url: '/static/assets/images/m1.png',
+        height: 50,
+        width: 50
+        },
+        {
+        textColor: 'black',
+        url: '/static/assets/images/m2.png',
+        height: 60,
+        width: 60
+        },
+        {
+        textColor: 'black',
+        url: '/static/assets/images/m3.png',
+        height: 70,
+        width: 70
+        }];
     var markerCluster = new MarkerClusterer(map, mapMarkers, {styles: markerClusterStyle});
-    var minClusterZoom = 14;
+    var minClusterZoom = 12;
     markerCluster.setMaxZoom(minClusterZoom);
 
     var oms = new OverlappingMarkerSpiderfier(map, {
@@ -110,7 +111,6 @@ function offersMapInit(id, locations) {
     });
 
     for (var i = 0; i < mapMarkers.length; i++) {
-        console.log("add marker")
         oms.addMarker(mapMarkers[i]);  // <-- here
     }
 }
