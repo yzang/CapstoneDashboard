@@ -12,7 +12,7 @@ def getCrashByYearRange(year_from,year_to):
     return crash_list
 
 def getMajFatalCrash():
-    crash_list=Crash.objects.filter(Q(maj_inj_count__gt=0)| Q(fatal_count__gt=0))
+    crash_list=Crash.objects.filter(Q(maj_inj_count__gt=0)| Q(fatal_count__gt=0)| Q(injury_count__gt=0))
     return crash_list
 
 '''
