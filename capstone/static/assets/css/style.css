@@ -96,3 +96,7 @@ dl {
 dd {
     margin-bottom: 5px;
 }
+
+.multiselect.btn-default, .multiselect.btn-default.disabled{
+    border:solid 1px;
+}
