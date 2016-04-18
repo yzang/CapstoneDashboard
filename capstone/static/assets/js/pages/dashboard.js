@@ -51,7 +51,44 @@ $(function () {
                 decimals: 0,
             }
         }
+    })
 
+    $(".noui-slider-day").noUiSlider({
+        start: [1, 7],
+        connect: true,
+        range: {
+            min: 1,
+            max: 7
+        },
+        step: 1,
+        serialization: {
+            lower: [customNouiToolTipMonth, $.Link({
+                target: $("#noui-tooltip-day1"),
+            })],
+            upper: [customNouiToolTipMonth, $.Link({target: $("#noui-tooltip-day2")})],
+            format: {
+                decimals: 0,
+            }
+        }
+    })
+
+    $(".noui-slider-hour").noUiSlider({
+        start: [1, 24],
+        connect: true,
+        range: {
+            min: 1,
+            max: 24
+        },
+        step: 1,
+        serialization: {
+            lower: [customNouiToolTipMonth, $.Link({
+                target: $("#noui-tooltip-hour1"),
+            })],
+            upper: [customNouiToolTipMonth, $.Link({target: $("#noui-tooltip-hour2")})],
+            format: {
+                decimals: 0,
+            }
+        }
     })
 
     // Basic initialization
