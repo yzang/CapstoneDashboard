@@ -2,8 +2,6 @@
  * Created by Yiming on 3/27/2016.
  */
 $(function () {
-
-
     //initialize the map size
     var mapHeight=$('#mapPanel').css('height')
     $('#map').css('height',mapHeight)
@@ -15,11 +13,11 @@ $(function () {
         }
     });
     $(".noui-slider-year").noUiSlider({
-        start: [2014, 2015],
+        start: [2011, 2014],
         connect: true,
         range: {
-            'min': 2010,
-            'max': 2020
+            'min': 2011,
+            'max': 2016
         },
         serialization: {
             lower: [customNouiToolTipYear, $.Link({target: $("#noui-tooltip-year1")})],
@@ -56,6 +54,11 @@ $(function () {
 
     })
 
-
+    // Basic initialization
+    $('.multiselect').multiselect({
+        onChange: function() {
+            $.uniform.update();
+        }
+    });
 
 })

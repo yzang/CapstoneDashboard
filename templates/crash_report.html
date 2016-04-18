@@ -1,5 +1,5 @@
 {% extends 'index.html' %}
-
+<link href="/static/assets/css/select.css" rel="stylesheet" type="text/css">
 {% block toggle-btn %}
     <a class="navbar-brand" id="btn-collapse-sidebar"><i class="fa fa-align-justify"></i></a>
 {% endblock %}
@@ -72,29 +72,93 @@
                             <!-- Layout -->
                             <li class="active">
                                 <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
-                                    <span>Vehicle</span></a>
+                                    <span>Day of Week</span></a>
+                                <ul>
+                                    <div class="category-content sidebar-user">
+                                        <div class="noui-slider-month noui-slider-danger"></div>
+                                        <div class="clearfix">
+                                            <span class="val-demo pull-left">From: <span
+                                                    id="noui-tooltip-month1"></span></span>
+                                            <span class="val-demo pull-right">To: <span id="noui-tooltip-month2"></span></span>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <!-- /layout -->
+                        </ul>
+                    </div>
+
+                    <div class="category-content no-padding" style="display: block;">
+                        <ul class="navigation navigation-main navigation-accordion">
+                            <!-- Layout -->
+                            <li class="active">
+                                <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
+                                    <span>Hour of Day</span></a>
+                                <ul>
+                                    <div class="category-content sidebar-user">
+                                        <div class="noui-slider-month noui-slider-danger"></div>
+                                        <div class="clearfix">
+                                            <span class="val-demo pull-left">From: <span
+                                                    id="noui-tooltip-month1"></span></span>
+                                            <span class="val-demo pull-right">To: <span id="noui-tooltip-month2"></span></span>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <!-- /layout -->
+                        </ul>
+                    </div>
+
+                    <div class="category-content no-padding" style="display: block;">
+                        <ul class="navigation navigation-main navigation-accordion">
+                            <!-- Layout -->
+                            <li class="active">
+                                <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
+                                    <span>Injury Severity</span></a>
                                 <ul>
                                     <div class="category-content sidebar-user">
                                         <div class="form-group">
-                                            <label class="control-label col-lg-2">Type:</label>
-                                            <div class="col-lg-10">
-                                                <select name="select" class="form-control">
-                                                    <option value="opt1">Please Choose</option>
-                                                    <option value="opt2">1</option>
-                                                    <option value="opt3">2</option>
-                                                    <option value="opt4">3</option>
-                                                    <option value="opt5">4</option>
+                                            <div class="multi-select-full">
+                                                <select class="multiselect" multiple="multiple">
+                                                    <option value="opt2">Not Injured</option>
+                                                    <option value="opt3">Killed</option>
+                                                    <option value="opt4">Major Injury</option>
+                                                    <option value="opt5">Moderate Injury</option>
+                                                    <option value="opt5">Minor Injury</option>
+                                                    <option value="opt5">Injury/ Unknown Severity</option>
+                                                    <option value="opt5">Unknown</option>
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <!-- /layout -->
+                        </ul>
+                    </div>
+
+                    <div class="category-content no-padding" style="display: block;">
+                        <ul class="navigation navigation-main navigation-accordion">
+                            <!-- Layout -->
+                            <li class="active">
+                                <a href="#" class="has-ul"><i class="icon-indent-decrease2"></i>
+                                    <span>Collision Type</span></a>
+                                <ul>
+                                    <div class="category-content sidebar-user">
                                         <div class="form-group">
-                                            <label class="control-label col-md-2">Num:</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" type="number" name="number">
+                                            <div class="multi-select-full">
+                                                <select class="multiselect" multiple="multiple">
+                                                    <option value="opt2">Angle</option>
+                                                    <option value="opt3">Head-on</option>
+                                                    <option value="opt4">Hit fixed object</option>
+                                                    <option value="opt5">Hit pedestrian</option>
+                                                    <option value="opt5">Non collision</option>
+                                                    <option value="opt5">Rear-end</option>
+                                                    <option value="opt5">Rear-to-rear</option>
+                                                    <option value="opt5">Sidewipe</option>
+                                                </select>
                                             </div>
                                         </div>
-
-                                    </div>
                                 </ul>
                             </li>
                             <!-- /layout -->
@@ -188,7 +252,7 @@
     <!-- Google Maps -->
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&amp;language=en"></script>
-    <script type="text/javascript" src="/static/assets/js/plugins/map/infobox.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/map/markerCluster.min.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/chart.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/dashboard.js"></script>
@@ -199,10 +263,10 @@
         google.maps.event.addDomListener(window, 'load', init);
         function init() {
             $.ajax({
-                url:'/capstone/api/getMajorOrFatal',
-                method:'get',
-                dataType:'json',
-                success:function(data){
+                url: '/capstone/api/getMajorOrFatal',
+                method: 'get',
+                dataType: 'json',
+                success: function (data) {
                     offersMapInit("map", data);
                 }
             })

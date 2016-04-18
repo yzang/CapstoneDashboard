@@ -23,7 +23,7 @@ var mapStyle = [{
 }];
 /********** MAP WITH INFOBOXES **********/
 
-var usLat=39.952584
+var usLat=39.966584
 var usLng=-75.165222
 function offersMapInit(id, locations) {
     var mapOptions = {

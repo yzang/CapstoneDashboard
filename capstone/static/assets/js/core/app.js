@@ -1,15 +1,15 @@
 /* ------------------------------------------------------------------------------
-*
-*  # Template JS core
-*
-*  Core JS file with default functionality configuration
-*
-*  Version: 1.0
-*  Latest update: Aug 1, 2015
-*
-* ---------------------------------------------------------------------------- */
+ *
+ *  # Template JS core
+ *
+ *  Core JS file with default functionality configuration
+ *
+ *  Version: 1.0
+ *  Latest update: Aug 1, 2015
+ *
+ * ---------------------------------------------------------------------------- */
 
-$(function() {
+$(function () {
 
 
 
@@ -22,8 +22,6 @@ $(function() {
 
         $('.page-container').attr('style', 'min-height:' + availableHeight + 'px');
     }
-
-
 
 
     // ========================================
@@ -41,13 +39,9 @@ $(function() {
 
 
     // Toggle visible state of heading elements
-    $('.heading-elements-toggle').on('click', function() {
+    $('.heading-elements-toggle').on('click', function () {
         $(this).parent().children('.heading-elements').toggleClass('visible');
     });
-
-
-
-
 
 
     // Navbar navigation
@@ -70,10 +64,6 @@ $(function() {
     });
 
 
-
-
-
-
     // Reload elements
     // -------------------------
 
@@ -81,7 +71,7 @@ $(function() {
     $('.panel [data-action=reload]').click(function (e) {
         e.preventDefault();
         var block = $(this).parent().parent().parent().parent().parent();
-        $(block).block({ 
+        $(block).block({
             message: '<i class="icon-spinner2 spinner"></i>',
             overlayCSS: {
                 backgroundColor: '#fff',
@@ -98,10 +88,9 @@ $(function() {
 
         // For demo purposes
         window.setTimeout(function () {
-           $(block).unblock();
-        }, 2000); 
+            $(block).unblock();
+        }, 2000);
     });
-
 
 
     //
@@ -132,8 +121,6 @@ $(function() {
     $('.panel-collapsed').find('[data-action=collapse]').children('i').addClass('rotate-180');
 
 
-
-
     // Remove elements
     // -------------------------
 
@@ -144,14 +131,10 @@ $(function() {
 
         containerHeight(); // recalculate page height
 
-        $panelClose.slideUp(150, function() {
+        $panelClose.slideUp(150, function () {
             $(this).remove();
         });
     });
-
-
-
-
 
 
     // Collapsible functionality
@@ -185,8 +168,6 @@ $(function() {
     });
 
 
-
-
     // ========================================
     //
     // Sidebars
@@ -204,7 +185,6 @@ $(function() {
         // Toggle min sidebar class
         $('body').toggleClass('sidebar-xs');
     });
-
 
 
     // Sidebar controls
@@ -242,7 +222,6 @@ $(function() {
 
         $('body').toggleClass('sidebar-all-hidden');
     });
-
 
 
     //
@@ -349,7 +328,6 @@ $(function() {
     });
 
 
-
     // Mobile sidebar controls
     // -------------------------
 
@@ -374,37 +352,28 @@ $(function() {
     });
 
 
-
     // Mobile sidebar setup
     // -------------------------
 
-    $(window).on('resize', function() {
-        setTimeout(function() {
+    $(window).on('resize', function () {
+        setTimeout(function () {
             containerHeight();
-            
-            if($(window).width() <= 768) {
-
+            if ($(window).width() <= 768) {
                 // Add mini sidebar indicator
                 $('body').addClass('sidebar-xs-indicator');
-
                 // Place right sidebar before content
                 $('.sidebar-opposite').prependTo('.page-content');
-
                 // Remove nicescroll on mobiles
                 $('.menu-list, .menu-list ul').getNiceScroll().remove();
                 $(".menu-list, .menu-list ul").removeAttr('style').removeAttr('tabindex');
             }
             else {
-
                 // Remove mini sidebar indicator
                 $('body').removeClass('sidebar-xs-indicator');
-
                 // Revert back right sidebar
                 $('.sidebar-opposite').insertAfter('.content-wrapper');
-
                 // Remove all mobile sidebar classes
                 $('body').removeClass('sidebar-mobile-main sidebar-mobile-secondary sidebar-mobile-opposite');
-
                 // Initialize nicescroll on tablets+
                 $(".menu-list, .menu-list ul").niceScroll({
                     mousescrollstep: 100,
@@ -413,7 +382,7 @@ $(function() {
                     cursorwidth: 3,
                     hidecursordelay: 200,
                     autohidemode: 'scroll',
-                    railpadding: { right: 0.5 }
+                    railpadding: {right: 0.5}
                 });
             }
         }, 100);
