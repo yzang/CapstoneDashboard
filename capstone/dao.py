@@ -14,7 +14,14 @@ def getCrashByYearRange(year_from,year_to):
 def getMajFatalCrash():
     crash_list=Crash.objects.filter(Q(max_severity_level__in=['Killed','Major injury','Minor injury']))
     return crash_list
-
+## chart age
+def getPersonDist():
+    teen = Person.objects.filter(age__gte=0, age__lte=18).count()
+    yong = Person.objects.filter(age__gte=19, age__lte=40).count()
+    middle = Person.objects.filter(age__gte=41, age__lte=60).count()
+    old = Person.objects.filter(age__gte=61, age__lte=99).count()
+    person_list=[('teen',teen),('yong',yong),('middle',middle),('old',old)]
+    return person_list
 '''
 #Q poster. where are crash with major severity happens?
 def getMajCrash(year):
