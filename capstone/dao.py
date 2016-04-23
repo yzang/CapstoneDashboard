@@ -1,6 +1,8 @@
 #put all the queries here
 from capstone.models import Crash
-from django.db.models import Avg, Max, Min, Q
+from capstone.models import Vehicle
+from capstone.models import Person
+from django.db.models import Avg, Max, Min, Q, Sum
 
 
 def getCrashByYear(year):
@@ -24,6 +26,24 @@ def getCollisionType():
 def getVehicleType():
     vehicle_list = Vehicle.objects.values('type').order_by().annotate(Count('type'))
     return vehicle_list
+
+##  3 rd chart from Gokul - severity level, intercept_type view
+def getCollisionType():
+    fatal_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('intersect_type').order_by().annotate(Sum('fatal_count'))
+    mcycle_death_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('intersect_type').order_by().annotate(Sum('mcycle_death_count'))
+    bicycle_death_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('intersect_type').order_by().annotate(Sum('bicycle_death_count'))
+    ped_death_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('intersect_type').order_by().annotate(Sum('ped_death_count'))
+    collistion_list = [('fatal_total',fatal_count_list),('mcycle_death_total',mcycle_death_count_list),('bicycle_death_total',bicycle_death_count_list),('ped_death_total',ped_death_count_list)]
+    return collistion_list
+
+##  4 th chart from Gokul - monthly view
+def getCollisionType():
+    mcycle_death_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('year','month').order_by().annotate(Sum('mcycle_death_count'))
+    bicycle_death_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('year','month').order_by().annotate(Sum('bicycle_death_count'))
+    ped_death_count_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('year','month').order_by().annotate(Sum('ped_death_count'))
+    crn_list = Crash.objects.filter(max_severity_level="Killed").filter(Q(intersect_type__in=['Mid-block','Four way ','T intersection','Y intersection','Multi-leg intersection','Off ramp'])).values('year','month').order_by().annotate(Count('crn'))
+    collistion_list = [('crn_total',crn_list),('mcycle_death_total',mcycle_death_count_list),('bicycle_death_total',bicycle_death_count_list),('ped_death_total',ped_death_count_list)]
+    return collistion_list
     
 ##  5th chart from Gokul - age
 def getPersonDist():
