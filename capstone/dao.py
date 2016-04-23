@@ -2,7 +2,7 @@
 from capstone.models import Crash
 from capstone.models import Vehicle
 from capstone.models import Person
-from django.db.models import Avg, Max, Min, Q, Sum
+from django.db.models import Avg, Max, Min, Q, Sum, Count
 
 
 def getCrashByYear(year):

@@ -23,8 +23,8 @@ var mapStyle = [{
 }];
 /********** MAP WITH INFOBOXES **********/
 
-var usLat=39.966584
-var usLng=-75.165222
+var usLat = 39.966584
+var usLng = -75.165222
 function offersMapInit(id, locations) {
     var mapOptions = {
         zoom: 12,
@@ -43,7 +43,7 @@ function offersMapInit(id, locations) {
             position: google.maps.ControlPosition.RIGHT_CENTER
         },
         scrollwheel: true,
-        center: new google.maps.LatLng(usLat,usLng),
+        center: new google.maps.LatLng(usLat, usLng),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: mapStyle
     };
@@ -65,8 +65,8 @@ function offersMapInit(id, locations) {
         mapMarkers[i] = marker;
 
         mapMarkers[i].infobox = new google.maps.InfoWindow({
-			content: locations[i].crn
-		});
+            content: locations[i].crn
+        });
         google.maps.event.addListener(marker, 'click', (function (marker, i) {
             return function () {
                 var j = 0;
@@ -82,24 +82,29 @@ function offersMapInit(id, locations) {
 
     var markerClusterStyle = [
         {
-        textColor: 'black',
-        url: '/static/assets/images/m1.png',
-        height: 50,
-        width: 50
+            textColor: 'black',
+            url: '/static/assets/images/m1.png',
+            height: 50,
+            width: 50,
+            threshold: 100
         },
         {
-        textColor: 'black',
-        url: '/static/assets/images/m2.png',
-        height: 60,
-        width: 60
+            textColor: 'black',
+            url: '/static/assets/images/m2.png',
+            height: 60,
+            width: 60,
+            threshold: 300
         },
         {
-        textColor: 'black',
-        url: '/static/assets/images/m3.png',
-        height: 70,
-        width: 70
+            textColor: 'black',
+            url: '/static/assets/images/m3.png',
+            height: 70,
+            width: 70
         }];
-    var markerCluster = new MarkerClusterer(map, mapMarkers, {styles: markerClusterStyle});
+    var markerCluster = new MarkerClusterer(map, mapMarkers, {
+
+        styles: markerClusterStyle
+    });
     var minClusterZoom = 12;
     markerCluster.setMaxZoom(minClusterZoom);
 
