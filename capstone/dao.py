@@ -14,19 +14,27 @@ def getCrashByYearRange(year_from,year_to):
 def getMajFatalCrash():
     crash_list=Crash.objects.filter(Q(max_severity_level__in=['Killed','Major injury','Minor injury']))
     return crash_list
-## chart age
-def getPersonDist():
-    teen = Person.objects.filter(age__gte=0, age__lte=18).count()
-    yong = Person.objects.filter(age__gte=19, age__lte=40).count()
-    middle = Person.objects.filter(age__gte=41, age__lte=60).count()
-    old = Person.objects.filter(age__gte=61, age__lte=99).count()
-    person_list=[('teen',teen),('yong',yong),('middle',middle),('old',old)]
-    return person_list
+    
+## 1st chart from Gokul - collision type
+def getCollisionType():
+    collision_list = Crash.objects.values('collision_type').order_by().annotate(Count('collision_type'))
+    return collision_list
 
-## chart vehicle type
+## 2nd chart from Gokul - vehicle type
 def getVehicleType():
     vehicle_list = Vehicle.objects.values('type').order_by().annotate(Count('type'))
     return vehicle_list
+    
+##  5th chart from Gokul - age
+def getPersonDist():
+    teen = Person.objects.filter(age__gte=0, age__lte=18).values('person_type').order_by().annotate(Count('person_type'))
+    yong = Person.objects.filter(age__gte=19, age__lte=40).values('person_type').order_by().annotate(Count('person_type'))
+    middle = Person.objects.filter(age__gte=41, age__lte=60).values('person_type').order_by().annotate(Count('person_type'))
+    old = Person.objects.filter(age__gte=61, age__lte=99).values('person_type').order_by().annotate(Count('person_type'))
+    person_list=[('teen',teen),('yong',yong),('middle',middle),('old',old)]
+    return person_list
+
+
     
 '''
 #Q poster. where are crash with major severity happens?
