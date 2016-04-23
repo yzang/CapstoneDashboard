@@ -22,6 +22,12 @@ def getPersonDist():
     old = Person.objects.filter(age__gte=61, age__lte=99).count()
     person_list=[('teen',teen),('yong',yong),('middle',middle),('old',old)]
     return person_list
+
+## chart vehicle type
+def getVehicleType():
+    vehicle_list = Vehicle.objects.values('type').order_by().annotate(Count('type'))
+    return vehicle_list
+    
 '''
 #Q poster. where are crash with major severity happens?
 def getMajCrash(year):
