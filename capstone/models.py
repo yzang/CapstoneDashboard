@@ -90,5 +90,18 @@ class Person(models.Model):
     # RESTRAINT_HELMET
     restraint_helmet=models.CharField(max_length=30)
 
+##Added by Phoebe
+class Vehicle(models.Model):
+    # CRN
+    crn=models.CharField(max_length=20)
+    # CRASH_YEAR
+    year=models.IntegerField()
+    # VEHICLE TYPE
+    type=models.CharField(max_length=30)
+    # X
+    X=models.FloatField()
+    # Y
+    Y=models.FloatField()
+    
     def __str__(self):
         return self.crn
