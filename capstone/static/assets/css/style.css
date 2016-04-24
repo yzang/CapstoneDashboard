@@ -100,3 +100,7 @@ dd {
 .multiselect.btn-default, .multiselect.btn-default.disabled{
     border:solid 1px grey;
 }
+
+.panel-body{
+    padding:10px
+}

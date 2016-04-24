@@ -79,7 +79,8 @@
                                         <div class="clearfix">
                                             <span class="val-demo pull-left">From: <span
                                                     id="noui-tooltip-day1"></span></span>
-                                            <span class="val-demo pull-right">To: <span id="noui-tooltip-day2"></span></span>
+                                            <span class="val-demo pull-right">To: <span
+                                                    id="noui-tooltip-day2"></span></span>
                                         </div>
                                     </div>
                                 </ul>
@@ -159,6 +160,7 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
                                 </ul>
                             </li>
                             <!-- /layout -->
@@ -194,31 +196,23 @@
     </div>
     <div class="content-wrapper">
         <div class="row" id="mapPanel">
-            <div class="col-md-6">
-                <div class="panel panel-flat no-margin-bottom">
-                    <div class="panel-heading">
-                        <h6 class="panel-title text-semibold">Vehicle Type Analysis</h6>
-                        <div class="heading-elements">
-                            <ul class="icons-list">
-                                <li><a data-action="collapse"></a></li>
-                                <li><a data-action="reload"></a></li>
-                                <li><a data-action="close"></a></li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="col-md-7">
+                <div class="panel panel-flat">
                     <div class="panel-body" id="pie-panel">
                         <div class="chart-container">
-                            <div class="chart has-fixed-height" id="connect_pie"></div>
+                            <div class="chart has-fixed-height" id="collision_type_chart"></div>
                         </div>
                     </div>
-                    <div class="panel-body">
+                </div>
+                <div class="panel panel-flat no-margin-bottom">
+                    <div class="panel-body" id="pie-panel">
                         <div class="chart-container">
-                            <div class="chart has-fixed-height" id="connect_column"></div>
+                            <div class="chart has-fixed-height" id="intersection_type_chart"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <div class="panel panel-flat">
                     <div id="map"></div>
                 </div>
@@ -228,37 +222,36 @@
         <!-- /combination and connection -->
 
         <!-- Line and bar combination -->
-        <div class="panel panel-flat">
-            <div class="panel-heading">
-                <h6 class="panel-title text-semibold">Crash Frequency Analysis</h6>
-                <div class="heading-elements">
-                    <ul class="icons-list">
-                        <li><a data-action="collapse"></a></li>
-                        <li><a data-action="reload"></a></li>
-                        <li><a data-action="close"></a></li>
-                    </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-flat">
+                    <div class="panel-body">
+                        <div class="chart-container">
+                            <div class="chart has-fixed-height" id="crash_chart"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="panel-body">
-                <div class="row">
-                    <div class="chart has-fixed-height" id="line_bar"></div>
-                </div>
-            </div>
         </div>
         <!-- /line and bar combination -->
+
     </div>
-    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/echarts.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/echarts.common.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/theme/macarons.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/theme/infographic.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/theme/roma.js"></script>
+    <script type="text/javascript" src="/static/assets/js/plugins/visualization/echarts/theme/shine.js"></script>
     <!-- Google Maps -->
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&amp;language=en"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/map/markerCluster.min.js"></script>
-    <script type="text/javascript" src="/static/assets/js/pages/chart.js"></script>
+    <script type="text/javascript" src="/static/assets/js/pages/allcharts.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/dashboard.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/map.js"></script>
 
-    <!-- google maps initialization -->
+    <!-- google maps initialization-->
     <script type="text/javascript">
         google.maps.event.addDomListener(window, 'load', init);
         function init() {
@@ -272,4 +265,5 @@
             })
         }
     </script>
+
 {% endblock %}
