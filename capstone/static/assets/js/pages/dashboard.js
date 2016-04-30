@@ -3,8 +3,8 @@
  */
 $(function () {
     //initialize the map size
-    var mapHeight=$('#mapPanel').css('height')
-    $('#map').css('height',mapHeight)
+    var mapHeight = $('#mapPanel').css('height')
+    $('#map').css('height', mapHeight)
 
     var customNouiToolTipYear = $.Link({
         target: '-tooltip-<div class="noui-tooltip"></div>',
@@ -93,9 +93,17 @@ $(function () {
 
     // Basic initialization
     $('.multiselect').multiselect({
-        onChange: function() {
+        onChange: function () {
             $.uniform.update();
         }
     });
+
+
+
+
+
+
+
+
 
 })

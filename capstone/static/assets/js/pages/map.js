@@ -84,16 +84,14 @@ function offersMapInit(id, locations) {
         {
             textColor: 'black',
             url: '/static/assets/images/m1.png',
-            height: 50,
-            width: 50,
-            threshold: 100
+            height: 45,
+            width: 45,
         },
         {
             textColor: 'black',
             url: '/static/assets/images/m2.png',
             height: 60,
             width: 60,
-            threshold: 300
         },
         {
             textColor: 'black',

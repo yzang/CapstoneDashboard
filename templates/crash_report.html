@@ -234,6 +234,18 @@
             </div>
 
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-flat">
+                    <div class="panel-body">
+                        <div class="chart-container">
+                            <div class="chart" id="pie_bar_chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- /line and bar combination -->
 
     </div>
@@ -247,23 +259,28 @@
             src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&amp;language=en"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/map/markerCluster.min.js"></script>
+    <script type="text/javascript" src="/static/assets/js/pages/map.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/allcharts.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/dashboard.js"></script>
-    <script type="text/javascript" src="/static/assets/js/pages/map.js"></script>
+
 
     <!-- google maps initialization-->
     <script type="text/javascript">
-        google.maps.event.addDomListener(window, 'load', init);
-        function init() {
+    $(function(){
+        // render the map
+        setTimeout(function () {
             $.ajax({
                 url: '/capstone/api/getMajorOrFatal',
                 method: 'get',
                 dataType: 'json',
                 success: function (data) {
-                    offersMapInit("map", data);
+                    console.log("data loaded")
+                    offersMapInit("map", data)
                 }
             })
-        }
+        },6000)
+    })
+
     </script>
 
 {% endblock %}
