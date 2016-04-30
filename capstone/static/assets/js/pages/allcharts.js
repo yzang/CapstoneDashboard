@@ -18,9 +18,9 @@ function init_collision_type_chart() {
                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
         }, grid: { // 控制图的大小，调整下面这些值就可以，
-            x:70,
-            x2:80,
-            y:80,
+            x: 70,
+            x2: 80,
+            y: 80,
             y2: 100,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
@@ -45,9 +45,9 @@ function init_intersection_type_chart() {
             }
         },
         grid: { // 控制图的大小，调整下面这些值就可以，
-            x:70,
-            x2:80,
-            y:80,
+            x: 70,
+            x2: 80,
+            y: 80,
             y2: 100,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
@@ -72,41 +72,18 @@ function init_monthly_crash_chart() {
             }
         },
         grid: { // 控制图的大小，调整下面这些值就可以，
-            x:80,
-            x2:80,
-            y:80,
-            y2: 60,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            x: 80,
+            x2: 80,
+            y: 80,
+            y2: 70,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
 
     })
     return chart
 }
 
-function init_monthly_crash_chart() {
-    var chart = echarts.init(document.getElementById('crash_chart'), 'shine');
-    chart.setOption({
-        title: {
-            text: 'Crash Severity Analysis',
-            x: 'left',
-            textStyle: {
-                color: '#000',
-                fontWeight: 'bold'
-            },
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            }
-        },
-        grid: { // 控制图的大小，调整下面这些值就可以，
-            x:80,
-            x2:80,
-            y:80,
-            y2: 60,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
-        },
-
-    })
+function init_pie_bar_chart() {
+    var chart = echarts.init(document.getElementById('pie_bar_chart'), 'macarons');
     return chart
 }
 
@@ -135,7 +112,7 @@ function build_collision_type_chart(chart, data) {
             type: 'value',
             name: series[0].legend,
             min: series[0].min,
-            max: Math.round(series[0].max * 1.1),
+            max: Math.ceil((series[0].max * 1.1) / 100.0) * 100,
             axisLabel: {
                 formatter: '{value}'
             },
@@ -190,7 +167,7 @@ function build_intersection_type_chart(chart, data) {
                 type: 'value',
                 name: series[i].legend,
                 min: 0,
-                max: Math.round(series[i].max * 1.1),
+                max: Math.ceil((series[i].max * 1.1) / 10.0) * 10,
                 splitLine: {show: false},
                 splitArea: {show: false}
 
@@ -247,7 +224,7 @@ function build_monthly_crash_chart(chart, data) {
                 type: 'value',
                 name: series[i].legend,
                 min: 0,
-                max: Math.round(series[i].max * 1.1),
+                max: Math.ceil((series[i].max * 1.1) / 10.0) * 10,
                 splitLine: {show: false},
                 splitArea: {show: false},
                 scale: true
@@ -288,7 +265,106 @@ function build_monthly_crash_chart(chart, data) {
     })
 }
 
-$(function(){
+function build_pie_bar_chart(chart, data) {
+    var years = data.years
+    years.push("total")
+    var person_types = data.person_types
+    var age_ranges = data.age_ranges
+    var max_2 = data.max[1]
+    var series_config = []
+    for (var i = 0; i < person_types.length; i++) {
+        series_config.push({
+            name: person_types[i],
+            type: 'bar'
+        })
+    }
+    series_config.push({
+        name: 'Vehicle Type',
+        type: 'pie',
+        center: ['82%', '32%'],
+        radius: '40%',
+        tooltip: {
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+        },
+        itemStyle: {
+            normal: {
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+                shadowBlur: 7,
+                shadowOffsetX: 2,
+                shadowOffsetY: 2,
+            }
+        }
+    })
+    var baseOption = {
+        tooltip: {},
+        legend: {
+            x: 'right',
+            data: person_types
+        },
+        calculable: true,
+        grid: {
+            top: 90,
+            bottom: 80,
+            x: 150,
+            x2: 250,
+        },
+        xAxis: [{
+            'type': 'category',
+            'axisLabel': {'interval': 0},
+            'data': age_ranges,
+            splitLine: {show: false}
+        }],
+        yAxis: [
+            {
+                type: 'value',
+                name: 'Crash Count',
+                max: Math.ceil((max_2 * 1.1) / 100.0) * 100,
+                splitLine: {show: false},
+                splitArea: {show: false},
+            }
+        ],
+        timeline: {
+            axisType: 'category',
+            autoPlay: true,
+            playInterval: 2500,
+            symbolSize: 14,
+            data: years
+        },
+        series: series_config
+    }
+    var options = []
+    for (var i = 0; i < years.length - 1; i++) {
+        var series_data = data[years[i]]
+        options.push({
+            title: {
+                text: "Year " + years[i] + " Analysis by Age & Vehicle",
+                textStyle: {
+                    color: '#000',
+                    fontWeight: 'bold'
+                }
+            },
+            series: series_data,
+            stack: "persons"
+        })
+    }
+    options.push({
+        title: {
+            text: "All Years Data",
+            textStyle: {
+                color: '#000',
+                fontWeight: 'bold'
+            }
+        },
+        series: data.total,
+        stack: ""
+    })
+    chart.setOption({
+        baseOption: baseOption,
+        options: options
+    })
+}
+
+$(function () {
     var collision_type_chart = init_collision_type_chart();
     collision_type_chart.showLoading();
     $.ajax({
@@ -328,14 +404,27 @@ $(function(){
         }
     });
 
+    //set up pie bar chart
+    var pie_bar_chart = init_pie_bar_chart();
+    pie_bar_chart.showLoading();
+    $.ajax({
+        url: "/capstone/api/getCrashByVehicleAndAge",
+        method: "get",
+        dataType: "json",
+        success: function (data) {
+            pie_bar_chart.hideLoading()
+            build_pie_bar_chart(pie_bar_chart, data)
+        }
+    })
 
-    //resize
     // Resize charts
     // ------------------------------
     window.onresize = function () {
         setTimeout(function () {
             collision_type_chart.resize();
             intersection_chart.resize();
+            monthly_crash_chart.resize();
+            pie_bar_chart.resize();
         }, 200);
     }
 
@@ -348,6 +437,8 @@ $(function(){
         }
         collision_type_chart.resize();
         intersection_chart.resize();
+        monthly_crash_chart.resize();
+            pie_bar_chart.resize();
         hidden = !hidden
     })
 })

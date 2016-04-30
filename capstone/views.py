@@ -96,6 +96,74 @@ def getCrashSeverityByMonth(request):
     return HttpResponse(json.dumps(json_data))
 
 
+def getCrashByVehicleAndAge(request):
+    json_data={}
+    years=dao.getAllYears()
+    print years
+    total_age_data=dao.getPersonAge()
+    total_vehicle_data=getVehicleType()
+    age_ranges=total_age_data.keys()
+    age_ranges.sort(key=lambda x:x[0])
+    person_types=dao.getAllPersonTypes()
+    max1,max2=0,0
+    # put series for each year
+    print person_types
+    print total_age_data
+    for year in years:
+        series=[]
+        age_data=dao.getPersonAge(year)
+        vehicle_data=getVehicleType(year)
+        for person_type in person_types:
+            data=[]
+            for age_range in age_ranges:
+                count=age_data.get(age_range,{}).get(person_type,0)
+                max1=max(max1,count)
+                data.append({"name":age_range,"value":count})
+            series.append({'data':data})
+        series.append({'data':vehicle_data})
+        json_data[year]=series
+    total_series=[]
+    # put series for total crash
+    for person_type in person_types:
+        data=[]
+        for age_range in age_ranges:
+            count=total_age_data.get(age_range,{}).get(person_type,0)
+            max2=max(max2,count)
+            data.append({"name":age_range,"value":count})
+        total_series.append({'data':data})
+    total_series.append({'data':total_vehicle_data})
+    # build into final json data
+    json_data['years']=years
+    json_data['age_ranges']=age_ranges
+    json_data['person_types']=person_types
+    json_data['max']=[max1,max2]
+    json_data['total']=total_series
+    return HttpResponse(json.dumps(json_data))
+
+
+
+def getVehicleType(year=-1):
+    dataset=dao.getVehicleType(year)
+    data=[]
+    total=0.0
+    for item in dataset:
+        total+=item['type__count']
+    other_total=0
+    for item in dataset:
+        count=item['type__count']
+        type=item['type']
+        if count/total<0.01:
+            other_total+=count
+        else:
+            vehicle={}
+            vehicle['name']=type
+            vehicle['value']=count
+            data.append(vehicle)
+    data.append({'name':'others','value':other_total})
+    return data
+
+
+
 def buildSerie(legend, data):
     serie = {'legend': legend,
              'max': max(data),
