@@ -2,3 +2,4 @@
 *.idea
 staticfiles
 db.sqlite3
+*.sqlite3
