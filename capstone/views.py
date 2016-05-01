@@ -75,7 +75,7 @@ def getCrashByIntersectionType(request):
                 labels.append(item['intersect_type'])
             if not all_data.has_key(key):
                 all_data[key] = []
-            all_data[key].append(item[key + '__sum'])
+            all_data[key].append(item[key + '_count__sum'])
     for key in all_data.keys():
         series.append(buildSerie(key.replace('_', ' '), all_data.get(key)))
         series.sort(key=lambda x: x.get('max'), reverse=True)

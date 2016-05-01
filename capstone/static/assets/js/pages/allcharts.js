@@ -46,9 +46,9 @@ function init_intersection_type_chart() {
         },
         grid: { // 控制图的大小，调整下面这些值就可以，
             x: 70,
-            x2: 80,
-            y: 80,
-            y2: 100,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            x2: 100,
+            y: 70,
+            y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
     return chart
@@ -157,7 +157,11 @@ function build_intersection_type_chart(chart, data) {
     var series = data.series;
     var labels = data.labels;
     if (series.length <= 1) return
-    var legend_data = {x: 'right', data: []}
+    var legend_data = {
+        x: 'right',
+        bottom:10,
+        itemGaph:5,
+        data: []}
     var yAxis_data = []
     var series_data = []
     for (var i = 0; i < series.length; i++) {
@@ -368,17 +372,17 @@ var intersection_chart = init_intersection_type_chart();
 var monthly_crash_chart = init_monthly_crash_chart();
 var pie_bar_chart = init_pie_bar_chart();
 $(function () {
-    var params={}
-    params['year_from']=parseInt($("#noui-tooltip-year1").html())
-    params['year_to']=parseInt($("#noui-tooltip-year2").html())
-    params['month_from']=parseInt($("#noui-tooltip-month1").html())
-    params['month_to']=parseInt($("#noui-tooltip-month2").html())
-    params['day_from']=parseInt($("#noui-tooltip-day1").html())
-    params['day_to']=parseInt($("#noui-tooltip-day2").html())
-    params['hour_from']=parseInt($("#noui-tooltip-hour1").html())
-    params['hour_to']=parseInt($("#noui-tooltip-hour2").html())
-    params['injury_options']=$('#injury-select').val()
-    params['collision_options']=$('#collision-select').val()
+    var params = {}
+    params['year_from'] = parseInt($("#noui-tooltip-year1").html())
+    params['year_to'] = parseInt($("#noui-tooltip-year2").html())
+    params['month_from'] = parseInt($("#noui-tooltip-month1").html())
+    params['month_to'] = parseInt($("#noui-tooltip-month2").html())
+    params['day_from'] = parseInt($("#noui-tooltip-day1").html())
+    params['day_to'] = parseInt($("#noui-tooltip-day2").html())
+    params['hour_from'] = parseInt($("#noui-tooltip-hour1").html())
+    params['hour_to'] = parseInt($("#noui-tooltip-hour2").html())
+    params['injury_options'] = $('#injury-select').val()
+    params['collision_options'] = $('#collision-select').val()
     buildAllCharts(params)
     // Resize charts
     // ------------------------------
@@ -401,18 +405,18 @@ $(function () {
         collision_type_chart.resize();
         intersection_chart.resize();
         monthly_crash_chart.resize();
-            pie_bar_chart.resize();
+        pie_bar_chart.resize();
         hidden = !hidden
     })
 })
 
-function buildAllCharts(params){
+function buildAllCharts(params) {
     collision_type_chart.showLoading();
     $.ajax({
         url: "/capstone/api/getCrashByCollisionType",
         method: "post",
         dataType: "json",
-        data:params,
+        data: params,
         success: function (data) {
             collision_type_chart.hideLoading();
             build_collision_type_chart(collision_type_chart, data)
@@ -423,7 +427,7 @@ function buildAllCharts(params){
         url: "/capstone/api/getCrashByIntersectionType",
         method: "post",
         dataType: "json",
-        data:params,
+        data: params,
         success: function (data) {
             intersection_chart.hideLoading();
             build_intersection_type_chart(intersection_chart, data)
@@ -434,7 +438,7 @@ function buildAllCharts(params){
         url: "/capstone/api/getCrashByMonth",
         method: "post",
         dataType: "json",
-        data:params,
+        data: params,
         success: function (data) {
             monthly_crash_chart.hideLoading();
             build_monthly_crash_chart(monthly_crash_chart, data)

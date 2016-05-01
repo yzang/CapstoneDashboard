@@ -45,8 +45,8 @@ def getSeverityAndInterception(params=None):
     mcycle_death_count_list = crash_data.values('intersect_type').annotate(Sum('mcycle_death_count'))
     bicycle_death_count_list = crash_data.values('intersect_type').annotate(Sum('bicycle_death_count'))
     ped_death_count_list = crash_data.values('intersect_type').annotate(Sum('ped_death_count'))
-    intersection = {'fatal_count': fatal_count_list, 'mcycle_death_count': mcycle_death_count_list,
-                    'bicycle_death_count': bicycle_death_count_list, 'ped_death_count': ped_death_count_list}
+    intersection = {'fatal': fatal_count_list, 'mcycle_death': mcycle_death_count_list,
+                    'bicycle_death': bicycle_death_count_list, 'ped_death': ped_death_count_list}
     return intersection
 
 
@@ -95,6 +95,7 @@ def getPersonAge(year=-1):
 def getAllYears():
     years_data=Crash.objects.values('year').distinct()
     years=map(lambda x:x['year'],years_data)
+    years.sort()
     return years
 
 def getAllPersonTypes():
