@@ -181,7 +181,7 @@ function build_intersection_type_chart(chart, data) {
             smooth: true,
             lineStyle: {
                 normal: {
-                    width: 3,
+                    width: 4,
                     shadowColor: 'rgba(0,0,0,0.4)',
                     shadowBlur: 10,
                     shadowOffsetY: 10
@@ -235,6 +235,7 @@ function build_monthly_crash_chart(chart, data) {
             data: series[i].data,
             yAxisIndex: i == 0 ? 0 : 1,
             smooth: true,
+
             lineStyle: {
                 normal: {
                     width: 3,
