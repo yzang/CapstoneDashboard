@@ -4,56 +4,56 @@ from django.db.models import Q, Sum, Count
 
 
 
-def getFilteredCrash(year_range, month_range, day_range, hour_range, injuries, collision_types):
+def getFilteredCrash(params):
     crash = Crash.objects
-    if year_range:
-        crash = crash.filter(year__gte=year_range[0], year__lte=year_range[1])
-    if month_range:
-        crash = crash.filter(month__gte=month_range[0], month__lte=month_range[1])
-    if day_range:
-        crash = crash.filter(day__gte=day_range[0], day__lte=day_range[1])
-    if hour_range:
-        crash = crash.filter(hour__gte=hour_range[0], hour__lte=hour_range[1])
-    if injuries:
-        crash = crash.filter(max_severity_level__in=injuries)
-    if collision_types:
-        crash = crash.filter(collision_type__in=collision_types)
+    if params is None:
+        return crash
+    if params.get('year_from') and params.get('year_to'):
+        crash = crash.filter(year__gte=params.get('year_from')[0], year__lte=params.get('year_to')[0])
+    if params.get('month_from') and params.get('month_to'):
+        crash = crash.filter(month__gte=params.get('month_from')[0], month__lte=params.get('month_to')[0])
+    if params.get('day_from') and params.get('day_to'):
+        crash = crash.filter(day__gte=params.get('day_from')[0], day__lte=params.get('day_to')[0])
+    if params.get('hour_from') and params.get('hour_to'):
+        crash = crash.filter(hour__gte=params.get('hour_from')[0], hour__lte=params.get('hour_to')[0])
+    if params.get('injury_options[]') and params.get('injury_options[]')[0]:
+        crash = crash.filter(max_severity_level__in=params.get('injury_options[]'))
+    if params.get('collision_options[]') and params.get('collision_options[]')[0]:
+        crash = crash.filter(collision_type__in=params.get('collision_options[]'))
     return crash
 
 
-def getCrashByYearRange(year_from, year_to):
-    crash_list = Crash.objects.filter(year__gte=year_from, year__lte=year_to)
-    return crash_list
-
-
-def getMajFatalCrash():
-    crash_list = Crash.objects.filter(max_severity_level__in=['Killed', 'Major injury', 'Minor injury'])
+def getMajFatalCrash(params=None):
+    crash_data=getFilteredCrash(params)
+    crash_list = crash_data.filter(max_severity_level__in=['Killed', 'Major injury', 'Minor injury'])
     return crash_list
 
 
 ## 1st chart - collision type
-def getCrashByCollisionType():
-    crashes = Crash.objects
-    crash_list = crashes.values('collision_type').annotate(Count('collision_type'))
-    fatal_list = crashes.filter(max_severity_level__in=['Killed', 'Major injury']).values('collision_type').annotate(
+def getCrashByCollisionType(params=None):
+    crash_data=getFilteredCrash(params)
+    crash_list = crash_data.values('collision_type').annotate(Count('collision_type'))
+    fatal_list = crash_data.filter(max_severity_level__in=['Killed', 'Major injury']).values('collision_type').annotate(
         Count('collision_type'))
     return crash_list, fatal_list
 
 
 ##  2nd - severity level, intercept_type view
-def getSeverityAndInterception():
-    fatal_count_list = Crash.objects.values('intersect_type').annotate(Sum('fatal_count'))
-    mcycle_death_count_list = Crash.objects.values('intersect_type').annotate(Sum('mcycle_death_count'))
-    bicycle_death_count_list = Crash.objects.values('intersect_type').annotate(Sum('bicycle_death_count'))
-    ped_death_count_list = Crash.objects.values('intersect_type').annotate(Sum('ped_death_count'))
+def getSeverityAndInterception(params=None):
+    crash_data=getFilteredCrash(params)
+    fatal_count_list = crash_data.values('intersect_type').annotate(Sum('fatal_count'))
+    mcycle_death_count_list = crash_data.values('intersect_type').annotate(Sum('mcycle_death_count'))
+    bicycle_death_count_list = crash_data.values('intersect_type').annotate(Sum('bicycle_death_count'))
+    ped_death_count_list = crash_data.values('intersect_type').annotate(Sum('ped_death_count'))
     intersection = {'fatal_count': fatal_count_list, 'mcycle_death_count': mcycle_death_count_list,
                     'bicycle_death_count': bicycle_death_count_list, 'ped_death_count': ped_death_count_list}
     return intersection
 
 
 ##  4 th chart from Gokul - monthly view
-def getMonthlySeverity():
-    crash_list = Crash.objects.values('year', 'month').order_by().annotate(Sum('mcycle_death_count'),
+def getMonthlySeverity(params=None):
+    crash_data=getFilteredCrash(params)
+    crash_list = crash_data.values('year', 'month').order_by().annotate(Sum('mcycle_death_count'),
                                                                            Sum('bicycle_death_count'),
                                                                            Sum('ped_death_count'),
                                                                            Count('crn'))

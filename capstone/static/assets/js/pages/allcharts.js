@@ -75,7 +75,7 @@ function init_monthly_crash_chart() {
             x: 80,
             x2: 80,
             y: 80,
-            y2: 70,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            y2: 80,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
 
     })
@@ -122,7 +122,7 @@ function build_collision_type_chart(chart, data) {
                 type: 'value',
                 name: series[1].legend,
                 min: 0,
-                max: Math.round(series[1].max * 1.1),
+                max: Math.ceil((series[1].max * 1.1) / 100.0) * 100,
                 axisLabel: {
                     formatter: '{value}'
                 },
@@ -227,7 +227,6 @@ function build_monthly_crash_chart(chart, data) {
                 max: Math.ceil((series[i].max * 1.1) / 10.0) * 10,
                 splitLine: {show: false},
                 splitArea: {show: false},
-                scale: true
             })
         }
         series_data.push({
@@ -259,8 +258,8 @@ function build_monthly_crash_chart(chart, data) {
         dataZoom: [{
             show: true,
             realtime: true,
-            start: 20,
-            end: 80
+            start: 0,
+            end: 100
         }]
     })
 }
@@ -363,60 +362,23 @@ function build_pie_bar_chart(chart, data) {
         options: options
     })
 }
-
+var collision_type_chart = init_collision_type_chart();
+var intersection_chart = init_intersection_type_chart();
+var monthly_crash_chart = init_monthly_crash_chart();
+var pie_bar_chart = init_pie_bar_chart();
 $(function () {
-    var collision_type_chart = init_collision_type_chart();
-    collision_type_chart.showLoading();
-    $.ajax({
-        url: "/capstone/api/getCrashByCollisionType",
-        method: "get",
-        dataType: "json",
-        success: function (data) {
-            collision_type_chart.hideLoading();
-            build_collision_type_chart(collision_type_chart, data)
-        }
-    });
-
-
-    //set up intersection chart
-    var intersection_chart = init_intersection_type_chart();
-    intersection_chart.showLoading();
-    $.ajax({
-        url: "/capstone/api/getCrashByIntersectionType",
-        method: "get",
-        dataType: "json",
-        success: function (data) {
-            intersection_chart.hideLoading();
-            build_intersection_type_chart(intersection_chart, data)
-        }
-    });
-
-    //set up monthly crash chart
-    var monthly_crash_chart = init_monthly_crash_chart();
-    monthly_crash_chart.showLoading();
-    $.ajax({
-        url: "/capstone/api/getCrashByMonth",
-        method: "get",
-        dataType: "json",
-        success: function (data) {
-            monthly_crash_chart.hideLoading();
-            build_monthly_crash_chart(monthly_crash_chart, data)
-        }
-    });
-
-    //set up pie bar chart
-    var pie_bar_chart = init_pie_bar_chart();
-    pie_bar_chart.showLoading();
-    $.ajax({
-        url: "/capstone/api/getCrashByVehicleAndAge",
-        method: "get",
-        dataType: "json",
-        success: function (data) {
-            pie_bar_chart.hideLoading()
-            build_pie_bar_chart(pie_bar_chart, data)
-        }
-    })
-
+    var params={}
+    params['year_from']=parseInt($("#noui-tooltip-year1").html())
+    params['year_to']=parseInt($("#noui-tooltip-year2").html())
+    params['month_from']=parseInt($("#noui-tooltip-month1").html())
+    params['month_to']=parseInt($("#noui-tooltip-month2").html())
+    params['day_from']=parseInt($("#noui-tooltip-day1").html())
+    params['day_to']=parseInt($("#noui-tooltip-day2").html())
+    params['hour_from']=parseInt($("#noui-tooltip-hour1").html())
+    params['hour_to']=parseInt($("#noui-tooltip-hour2").html())
+    params['injury_options']=$('#injury-select').val()
+    params['collision_options']=$('#collision-select').val()
+    buildAllCharts(params)
     // Resize charts
     // ------------------------------
     window.onresize = function () {
@@ -442,3 +404,49 @@ $(function () {
         hidden = !hidden
     })
 })
+
+function buildAllCharts(params){
+    collision_type_chart.showLoading();
+    $.ajax({
+        url: "/capstone/api/getCrashByCollisionType",
+        method: "post",
+        dataType: "json",
+        data:params,
+        success: function (data) {
+            collision_type_chart.hideLoading();
+            build_collision_type_chart(collision_type_chart, data)
+        }
+    });
+    intersection_chart.showLoading();
+    $.ajax({
+        url: "/capstone/api/getCrashByIntersectionType",
+        method: "post",
+        dataType: "json",
+        data:params,
+        success: function (data) {
+            intersection_chart.hideLoading();
+            build_intersection_type_chart(intersection_chart, data)
+        }
+    });
+    monthly_crash_chart.showLoading();
+    $.ajax({
+        url: "/capstone/api/getCrashByMonth",
+        method: "post",
+        dataType: "json",
+        data:params,
+        success: function (data) {
+            monthly_crash_chart.hideLoading();
+            build_monthly_crash_chart(monthly_crash_chart, data)
+        }
+    });
+    pie_bar_chart.showLoading();
+    $.ajax({
+        url: "/capstone/api/getCrashByVehicleAndAge",
+        method: "get",
+        dataType: "json",
+        success: function (data) {
+            pie_bar_chart.hideLoading()
+            build_pie_bar_chart(pie_bar_chart, data)
+        }
+    })
+}

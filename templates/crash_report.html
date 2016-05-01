@@ -11,7 +11,7 @@
 
 {% block main-content %}
     <div class="sidebar sidebar-main sidebar-default" id="div-sidebar">
-        <form class="form-horizontal">
+        <form class="form-horizontal" id="filter-form">
             <div class="sidebar-content">
                 <!-- Main navigation -->
                 <div class="sidebar-category sidebar-category-visible">
@@ -116,14 +116,14 @@
                                     <div class="category-content sidebar-user">
                                         <div class="form-group">
                                             <div class="multi-select-full">
-                                                <select class="multiselect" multiple="multiple">
-                                                    <option value="opt2">Not Injured</option>
-                                                    <option value="opt3">Killed</option>
-                                                    <option value="opt4">Major Injury</option>
-                                                    <option value="opt5">Moderate Injury</option>
-                                                    <option value="opt5">Minor Injury</option>
-                                                    <option value="opt5">Injury/ Unknown Severity</option>
-                                                    <option value="opt5">Unknown</option>
+                                                <select id="injury-select" form="filter-form" class="multiselect" multiple="multiple">
+                                                    <option value="Not Injured">Not Injured</option>
+                                                    <option value="Killed">Killed</option>
+                                                    <option value="Major Injury">Major Injury</option>
+                                                    <option value="Moderate Injury">Moderate Injury</option>
+                                                    <option value="Minor Injury">Minor Injury</option>
+                                                    <option value="Injury/ Unknown Severity">Injury/ Unknown Severity</option>
+                                                    <option value="Unknown">Unknown</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -144,15 +144,15 @@
                                     <div class="category-content sidebar-user">
                                         <div class="form-group">
                                             <div class="multi-select-full">
-                                                <select class="multiselect" multiple="multiple">
-                                                    <option value="opt2">Angle</option>
-                                                    <option value="opt3">Head-on</option>
-                                                    <option value="opt4">Hit fixed object</option>
-                                                    <option value="opt5">Hit pedestrian</option>
-                                                    <option value="opt5">Non collision</option>
-                                                    <option value="opt5">Rear-end</option>
-                                                    <option value="opt5">Rear-to-rear</option>
-                                                    <option value="opt5">Sidewipe</option>
+                                                <select form="filter-form" id="collision-select" class="multiselect" multiple="multiple">
+                                                    <option value="Angle">Angle</option>
+                                                    <option value="Head-on">Head-on</option>
+                                                    <option value="Hit fixed object">Hit fixed object</option>
+                                                    <option value="Hit pedestrian">Hit pedestrian</option>
+                                                    <option value="Non collision">Non collision</option>
+                                                    <option value="Rear-end">Rear-end</option>
+                                                    <option value="Rear-to-rear">Rear-to-rear</option>
+                                                    <option value="Sidewipe">Sidewipe</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@
                             <div class="row">
                                 <div class="col-xs-6">
                                     <button class="btn bg-primary-400 btn-block btn-float btn-float-lg"
-                                            type="button"><i class="fa fa-check"></i> <span>Apply</span></button>
+                                            type="button" id="btn-filter"><i class="fa fa-check"></i><span>Apply</span></button>
                                 </div>
                                 <div class="col-xs-6">
                                     <button class="btn bg-purple-300 btn-block btn-float btn-float-lg"
@@ -256,41 +256,22 @@
     <script type="text/javascript" src="/static/assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
     <script type="text/javascript" src="/static/assets/js/plugins/map/markerCluster.min.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/map.js"></script>
-    <script type="text/javascript" src="/static/assets/js/pages/allcharts.js"></script>
     <script type="text/javascript" src="/static/assets/js/pages/dashboard.js"></script>
+    <script type="text/javascript" src="/static/assets/js/pages/allcharts.js"></script>
+
 
 
     <!-- google maps initialization-->
     <script type="text/javascript">
         $(function () {
-            // render the map
-            $('#map').block({
-                message: '<i class="icon-spinner9 spinner"></i>',
-                overlayCSS: {
-                    backgroundColor: '#1B2024',
-                    opacity: 0.85,
-                    cursor: 'wait'
-                },
-                css: {
-                    border: 0,
-                    padding: 0,
-                    backgroundColor: 'none',
-                    color: '#fff'
-                }
-            });
-            setTimeout(function () {
-                $.ajax({
-                    url: '/capstone/api/getMajorOrFatal',
-                    method: 'get',
-                    dataType: 'json',
-                    success: function (data) {
-                        offersMapInit("map", data)
-                        $('#map').unblock();
-                    }
-                })
-            }, 5000)
+            var params=getFilters()
+            renderMap(params)
+            $('#btn-filter').on('click',function(){
+                var params=getFilters()
+                buildAllCharts(params)
+                renderMap(params)
+            })
         })
-
     </script>
 
 {% endblock %}

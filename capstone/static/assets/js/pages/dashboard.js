@@ -13,7 +13,7 @@ $(function () {
         }
     });
     $(".noui-slider-year").noUiSlider({
-        start: [2011, 2014],
+        start: [2014, 2016],
         connect: true,
         range: {
             'min': 2011,
@@ -92,17 +92,52 @@ $(function () {
     })
 
     // Basic initialization
-    $('.multiselect').multiselect({
-        onChange: function () {
-            $.uniform.update();
-        }
-    });
-
-
-
-
-
-
-
+    $('.multiselect').multiselect({});
 
 })
+
+
+function getFilters() {
+    var params = {}
+    params['year_from'] = parseInt($("#noui-tooltip-year1").html())
+    params['year_to'] = parseInt($("#noui-tooltip-year2").html())
+    params['month_from'] = parseInt($("#noui-tooltip-month1").html())
+    params['month_to'] = parseInt($("#noui-tooltip-month2").html())
+    params['day_from'] = parseInt($("#noui-tooltip-day1").html())
+    params['day_to'] = parseInt($("#noui-tooltip-day2").html())
+    params['hour_from'] = parseInt($("#noui-tooltip-hour1").html())
+    params['hour_to'] = parseInt($("#noui-tooltip-hour2").html())
+    params['injury_options']=$('#injury-select').val()
+    params['collision_options']=$('#collision-select').val()
+    return params
+}
+
+function renderMap(params) {
+    // render the map
+    $('#map').block({
+        message: '<i class="icon-spinner9 spinner"></i>',
+        overlayCSS: {
+            backgroundColor: '#1B2024',
+            opacity: 0.35,
+            cursor: 'wait'
+        },
+        css: {
+            border: 0,
+            padding: 0,
+            backgroundColor: 'none',
+            color: '#fff'
+        }
+    });
+    setTimeout(function () {
+        $.ajax({
+            url: '/capstone/api/getMajorOrFatal',
+            method: 'post',
+            dataType: 'json',
+            data: params,
+            success: function (data) {
+                offersMapInit("map", data)
+                $('#map').unblock();
+            }
+        })
+    }, 3000)
+}
