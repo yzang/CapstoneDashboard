@@ -9,7 +9,8 @@ function init_collision_type_chart() {
             text: 'Collision Type Analysis',
             x: 'left',
             textStyle: {
-                color: '#000'
+                color: '#000',
+                fontSize:14
             }
         },
         tooltip: {
@@ -18,10 +19,10 @@ function init_collision_type_chart() {
                 type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
             }
         }, grid: { // 控制图的大小，调整下面这些值就可以，
-            x: 70,
+            x: 80,
             x2: 80,
-            y: 80,
-            y2: 100,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            y: 70,
+            y2: 120,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
     return chart
@@ -35,7 +36,8 @@ function init_intersection_type_chart() {
             x: 'left',
             textStyle: {
                 color: '#000',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                fontSize:14
             },
         },
         tooltip: {
@@ -45,10 +47,10 @@ function init_intersection_type_chart() {
             }
         },
         grid: { // 控制图的大小，调整下面这些值就可以，
-            x: 70,
-            x2: 100,
+            x: 80,
+            x2: 80,
             y: 70,
-            y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            y2: 120,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
     return chart
@@ -62,7 +64,8 @@ function init_monthly_crash_chart() {
             x: 'left',
             textStyle: {
                 color: '#000',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                fontSize:14
             },
         },
         tooltip: {
@@ -159,8 +162,8 @@ function build_intersection_type_chart(chart, data) {
     if (series.length <= 1) return
     var legend_data = {
         x: 'right',
-        bottom:10,
-        itemGaph:5,
+        //bottom:10,
+        itemGap:3,
         data: []}
     var yAxis_data = []
     var series_data = []
@@ -344,7 +347,8 @@ function build_pie_bar_chart(chart, data) {
                 text: "Year " + years[i] + " Analysis by Age & Vehicle",
                 textStyle: {
                     color: '#000',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    fontSize:14
                 }
             },
             series: series_data,
@@ -367,6 +371,7 @@ function build_pie_bar_chart(chart, data) {
         options: options
     })
 }
+
 var collision_type_chart = init_collision_type_chart();
 var intersection_chart = init_intersection_type_chart();
 var monthly_crash_chart = init_monthly_crash_chart();
