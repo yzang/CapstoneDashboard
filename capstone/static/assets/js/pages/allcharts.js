@@ -94,6 +94,7 @@ function init_pie_bar_chart() {
 function build_collision_type_chart(chart, data) {
     var series = data.series;
     var labels = data.labels;
+    var yaxis_labels=data.yaxis;
     if (series.length <= 1) return
     var series_data = []
     var legends = []
@@ -144,7 +145,7 @@ function build_collision_type_chart(chart, data) {
         },
         yAxis: [{
             type: 'value',
-            name: series[0].legend,
+            name: yaxis_labels[0],
             min: series[0].min,
             max: Math.ceil((series[0].max * 1.1) / 100.0) * 100,
             axisLabel: {
@@ -154,7 +155,7 @@ function build_collision_type_chart(chart, data) {
         },
             {
                 type: 'value',
-                name: series[1].legend,
+                name: yaxis_labels[1],
                 min: 0,
                 max: Math.ceil((series[1].max * 1.1) / 10.0) * 10,
                 axisLabel: {
@@ -171,6 +172,7 @@ function build_collision_type_chart(chart, data) {
 function build_intersection_type_chart(chart, data) {
     var series = data.series;
     var labels = data.labels;
+    var yaxis_labels=data.yaxis;
     if (series.length <= 1) return
     var legend_data = {
         x: 'right',
@@ -185,9 +187,9 @@ function build_intersection_type_chart(chart, data) {
         if (i <= 1) {
             yAxis_data.push({
                 type: 'value',
-                name: series[i].legend,
+                name: yaxis_labels[i],
                 min: 0,
-                max: Math.ceil((series[i].max * 1.1) / 10.0) * 10,
+                max: Math.max(series[i].max+1,Math.ceil((series[i].max * 1.1) / 10.0) * 10),
                 splitLine: {show: false},
                 splitArea: {show: false}
 
@@ -232,6 +234,7 @@ function build_intersection_type_chart(chart, data) {
 function build_monthly_crash_chart(chart, data) {
     var series = data.series;
     var labels = data.labels;
+    var yaxis_labels=data.yaxis;
     if (series.length <= 1) return
     var legend_data = {x: 'right', data: []}
     var yAxis_data = []
@@ -241,7 +244,7 @@ function build_monthly_crash_chart(chart, data) {
         if (i <= 1) {
             yAxis_data.push({
                 type: 'value',
-                name: series[i].legend,
+                name: yaxis_labels[i],
                 min: 0,
                 max: Math.ceil((series[i].max * 1.1) / 10.0) * 10,
                 splitLine: {show: false},

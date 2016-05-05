@@ -56,10 +56,12 @@ def getSeverityAndInterception(params=None):
 ##  4 th chart from Gokul - monthly view
 def getMonthlySeverity(params=None):
     crash_data=getFilteredCrash(params)
-    crash_list = crash_data.values('year', 'month').order_by().annotate(Sum('mcycle_death_count'),
-                                                                           Sum('bicycle_death_count'),
-                                                                           Sum('ped_death_count'),
-                                                                           Count('crn'))
+    crash_list = crash_data.values('year', 'month').order_by().annotate(crash_count=Count('crn'),
+                                                                        severe=Sum('sev_inj_count'),
+                                                                        automobile=Sum('fatal_count')-Sum('mcycle_death_count')-Sum('bicycle_death_count')-Sum('ped_death_count'),
+                                                                        motorcycle=Sum('mcycle_death_count'),
+                                                                        bicycle=Sum('bicycle_death_count'),
+                                                                        pedestrian=Sum('ped_death_count'))
     return crash_list
 
 

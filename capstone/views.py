@@ -54,13 +54,14 @@ def getCrashByCollisionType(request):
         motorcycle.append(item.get('motorcycle',0))
         bicycle.append(item.get('bicycle',0))
     series.append(buildSerie('crash', total_crash))
-    series.append(buildSerie('severe', severe))
-    series.append(buildSerie('automobile', automobile))
-    series.append(buildSerie('pedestrian', pedestrian))
-    series.append(buildSerie('motorcycle', motorcycle))
-    series.append(buildSerie('bicycle', bicycle))
+    series.append(buildSerie('sev_inj', severe))
+    series.append(buildSerie('auto_death', automobile))
+    series.append(buildSerie('ped_death', pedestrian))
+    series.append(buildSerie('motor_death', motorcycle))
+    series.append(buildSerie('bicycle_death', bicycle))
     json_data['labels'] = labels
     json_data['series'] = series
+    json_data['yaxis']=["number of crashes","severe injuries & death"]
     return HttpResponse(json.dumps(json_data))
 
 
@@ -87,13 +88,14 @@ def getCrashByIntersectionType(request):
         motorcycle.append(item.get('motorcycle',0))
         bicycle.append(item.get('bicycle',0))
     series.append(buildSerie('crash', total_crash))
-    series.append(buildSerie('severe', severe))
-    series.append(buildSerie('automobile', automobile))
-    series.append(buildSerie('pedestrian', pedestrian))
-    series.append(buildSerie('motorcycle', motorcycle))
-    series.append(buildSerie('bicycle', bicycle))
+    series.append(buildSerie('sev_inj', severe))
+    series.append(buildSerie('auto_death', automobile))
+    series.append(buildSerie('ped_death', pedestrian))
+    series.append(buildSerie('motor_death', motorcycle))
+    series.append(buildSerie('bicycle_death', bicycle))
     json_data['labels'] = labels
     json_data['series'] = series
+    json_data['yaxis']=["number of crashes","severe injuries & death"]
     return HttpResponse(json.dumps(json_data))
 
 
@@ -103,6 +105,8 @@ def getCrashSeverityByMonth(request):
     labels = []
     series = []
     crn_data = []
+    severe=[]
+    auto_data=[]
     ped_data = []
     motor_data = []
     bicycle_data = []
@@ -111,16 +115,21 @@ def getCrashSeverityByMonth(request):
     dataset = dao.getMonthlySeverity(params)
     for item in dataset:
         labels.append(str(item['year']) + '/' + str(item['month']))
-        crn_data.append(item['crn__count'])
-        ped_data.append(item['ped_death_count__sum'])
-        motor_data.append(item['mcycle_death_count__sum'])
-        bicycle_data.append(item['bicycle_death_count__sum'])
-    series.append(buildSerie('total crash', crn_data))
+        crn_data.append(item['crash_count'])
+        severe.append(item['severe'])
+        auto_data.append(item['automobile'])
+        ped_data.append(item['pedestrian'])
+        motor_data.append(item['motorcycle'])
+        bicycle_data.append(item['bicycle'])
+    series.append(buildSerie('crash', crn_data))
+    series.append(buildSerie('severe injuries', severe))
+    series.append(buildSerie('automobile death', auto_data))
     series.append(buildSerie('pedestrian death', ped_data))
     series.append(buildSerie('motorcycle death', motor_data))
     series.append(buildSerie('bicycle death', bicycle_data))
     json_data['labels'] = labels
     json_data['series'] = series
+    json_data['yaxis']=["number of crashes","severe injuries & death"]
     return HttpResponse(json.dumps(json_data))
 
 
@@ -187,7 +196,7 @@ def getVehicleType(year=-1):
     return data
 
 
-def buildSerie(legend, data):
+def buildSerie(legend,data):
     if not data:
         return {
             'legend': legend,
