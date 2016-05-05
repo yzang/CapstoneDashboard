@@ -25,29 +25,32 @@ def getFilteredCrash(params):
 
 def getMajFatalCrash(params=None):
     crash_data=getFilteredCrash(params)
-    crash_list = crash_data.filter(max_severity_level__in=['Killed', 'Major injury', 'Minor injury'])
-    return crash_list
+    return crash_data
 
 
 ## 1st chart - collision type
 def getCrashByCollisionType(params=None):
     crash_data=getFilteredCrash(params)
-    crash_list = crash_data.values('collision_type').annotate(Count('collision_type'))
-    fatal_list = crash_data.filter(max_severity_level__in=['Killed', 'Major injury']).values('collision_type').annotate(
-        Count('collision_type'))
-    return crash_list, fatal_list
+    dataset = crash_data.values('collision_type').\
+        order_by('collision_type').annotate(crash_count=Count('crn'),
+                                            severe=Sum('sev_inj_count'),
+                                            automobile=Sum('fatal_count')-Sum('mcycle_death_count')-Sum('bicycle_death_count')-Sum('ped_death_count'),
+                                            pedestrian=Sum('ped_death_count'),
+                                            motorcycle=Sum('mcycle_death_count'),
+                                            bicycle=Sum('bicycle_death_count'))
+    return dataset
 
 
 ##  2nd - severity level, intercept_type view
 def getSeverityAndInterception(params=None):
     crash_data=getFilteredCrash(params)
-    fatal_count_list = crash_data.values('intersect_type').annotate(Sum('fatal_count'))
-    mcycle_death_count_list = crash_data.values('intersect_type').annotate(Sum('mcycle_death_count'))
-    bicycle_death_count_list = crash_data.values('intersect_type').annotate(Sum('bicycle_death_count'))
-    ped_death_count_list = crash_data.values('intersect_type').annotate(Sum('ped_death_count'))
-    intersection = {'fatal': fatal_count_list, 'mcycle_death': mcycle_death_count_list,
-                    'bicycle_death': bicycle_death_count_list, 'ped_death': ped_death_count_list}
-    return intersection
+    dataset= crash_data.values('intersect_type').annotate(crash_count=Count('crn'),
+                                                              severe=Sum('sev_inj_count'),
+                                                              automobile=Sum('fatal_count')-Sum('mcycle_death_count')-Sum('bicycle_death_count')-Sum('ped_death_count'),
+                                                              pedestrian=Sum('ped_death_count'),
+                                                              motorcycle=Sum('mcycle_death_count'),
+                                                              bicycle=Sum('bicycle_death_count'))
+    return dataset
 
 
 ##  4 th chart from Gokul - monthly view
@@ -102,3 +105,8 @@ def getAllPersonTypes():
     person_type_data=Person.objects.values('person_type').distinct().order_by()
     person_types=map(lambda x:x['person_type'],person_type_data)
     return person_types
+
+def getAllCollisionTypes():
+    collision_types=Crash.objects.values('collision_type').distinct().order_by()
+    collision_types=map(lambda x:x['collision_type'],collision_types)
+    return collision_types

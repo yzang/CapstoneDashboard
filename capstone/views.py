@@ -35,24 +35,30 @@ def getMajorFatal(request):
 def getCrashByCollisionType(request):
     query_dict = request.POST
     params = dict(query_dict.iterlists())
-    crashes, fatal_crashes = dao.getCrashByCollisionType(params)
+    dataset = dao.getCrashByCollisionType(params)
     labels = []
-    label_dict = {}
-    total_data = []
+    total_crash = []
     json_data = {}
     series = []
-    for crash in crashes:
-        label = crash['collision_type']
-        label_dict[label] = len(labels)
-        labels.append(label)
-        total_data.append(crash['collision_type__count'])
-    fatal_data = [0 for i in range(len(total_data))]
-    for fatal in fatal_crashes:
-        label = fatal['collision_type']
-        index = label_dict.get(label)
-        fatal_data[index] = fatal['collision_type__count']
-    series.append(buildSerie('Total Count', total_data))
-    series.append(buildSerie('Fatal Count', fatal_data))
+    severe=[]
+    automobile=[]
+    pedestrian=[]
+    motorcycle=[]
+    bicycle=[]
+    for item in dataset:
+        labels.append(item['collision_type'])
+        total_crash.append(item.get('crash_count',0))
+        severe.append(item.get('severe',0))
+        automobile.append(item.get('automobile',0))
+        pedestrian.append(item.get('pedestrian',0))
+        motorcycle.append(item.get('motorcycle',0))
+        bicycle.append(item.get('bicycle',0))
+    series.append(buildSerie('crash', total_crash))
+    series.append(buildSerie('severe', severe))
+    series.append(buildSerie('automobile', automobile))
+    series.append(buildSerie('pedestrian', pedestrian))
+    series.append(buildSerie('motorcycle', motorcycle))
+    series.append(buildSerie('bicycle', bicycle))
     json_data['labels'] = labels
     json_data['series'] = series
     return HttpResponse(json.dumps(json_data))
@@ -60,25 +66,32 @@ def getCrashByCollisionType(request):
 
 @csrf_exempt
 def getCrashByIntersectionType(request):
-    json_data = {}
-    labels = []
-    series = []
-    all_data = {}
     query_dict = request.POST
     params = dict(query_dict.iterlists())
     dataset = dao.getSeverityAndInterception(params)
-    for key in dataset.keys():
-        label_filled = len(labels) > 0
-        items = dataset.get(key)
-        for item in items:
-            if not label_filled:
-                labels.append(item['intersect_type'])
-            if not all_data.has_key(key):
-                all_data[key] = []
-            all_data[key].append(item[key + '_count__sum'])
-    for key in all_data.keys():
-        series.append(buildSerie(key.replace('_', ' '), all_data.get(key)))
-        series.sort(key=lambda x: x.get('max'), reverse=True)
+    labels = []
+    total_crash = []
+    json_data = {}
+    series = []
+    severe=[]
+    automobile=[]
+    pedestrian=[]
+    motorcycle=[]
+    bicycle=[]
+    for item in dataset:
+        labels.append(item['intersect_type'])
+        total_crash.append(item.get('crash_count',0))
+        severe.append(item.get('severe',0))
+        automobile.append(item.get('automobile',0))
+        pedestrian.append(item.get('pedestrian',0))
+        motorcycle.append(item.get('motorcycle',0))
+        bicycle.append(item.get('bicycle',0))
+    series.append(buildSerie('crash', total_crash))
+    series.append(buildSerie('severe', severe))
+    series.append(buildSerie('automobile', automobile))
+    series.append(buildSerie('pedestrian', pedestrian))
+    series.append(buildSerie('motorcycle', motorcycle))
+    series.append(buildSerie('bicycle', bicycle))
     json_data['labels'] = labels
     json_data['series'] = series
     return HttpResponse(json.dumps(json_data))

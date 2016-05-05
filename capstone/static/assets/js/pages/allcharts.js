@@ -3,14 +3,15 @@
  */
 
 function init_collision_type_chart() {
-    var chart = echarts.init(document.getElementById('collision_type_chart'), 'roma');
+    var chart = echarts.init(document.getElementById('collision_type_chart'), 'shine');
     chart.setOption({
         title: {
             text: 'Collision Type Analysis',
             x: 'left',
             textStyle: {
                 color: '#000',
-                fontSize:14
+                fontSize: 14,
+                fontWeight:'bold'
             }
         },
         tooltip: {
@@ -21,8 +22,8 @@ function init_collision_type_chart() {
         }, grid: { // 控制图的大小，调整下面这些值就可以，
             x: 80,
             x2: 80,
-            y: 70,
-            y2: 120,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            y: 60,
+            y2: 130,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
     return chart
@@ -37,7 +38,7 @@ function init_intersection_type_chart() {
             textStyle: {
                 color: '#000',
                 fontWeight: 'bold',
-                fontSize:14
+                fontSize: 14
             },
         },
         tooltip: {
@@ -49,8 +50,8 @@ function init_intersection_type_chart() {
         grid: { // 控制图的大小，调整下面这些值就可以，
             x: 80,
             x2: 80,
-            y: 70,
-            y2: 120,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+            y: 60,
+            y2: 130,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
         },
     })
     return chart
@@ -65,7 +66,7 @@ function init_monthly_crash_chart() {
             textStyle: {
                 color: '#000',
                 fontWeight: 'bold',
-                fontSize:14
+                fontSize: 14
             },
         },
         tooltip: {
@@ -94,17 +95,47 @@ function build_collision_type_chart(chart, data) {
     var series = data.series;
     var labels = data.labels;
     if (series.length <= 1) return
+    var series_data = []
+    var legends = []
+    for (var i = 0; i < series.length; i++) {
+        legends.push(series[i].legend)
+        if (i == 0) {
+            series_data.push({
+                name: series[i].legend,
+                type: 'bar',
+                data: series[i].data,
+            })
+        } else {
+            series_data.push({
+                name: series[i].legend,
+                type: 'line',
+                yAxisIndex: 1,
+                data: series[i].data,
+                smooth: true,
+                lineStyle: {
+                    normal: {
+                        width: 3,
+                        shadowColor: 'rgba(0,0,0,0.4)',
+                        shadowBlur: 10,
+                        shadowOffsetY: 10
+                    }
+                }
+            })
+        }
+    }
     chart.setOption({
         legend: {
             x: 'right',
-            data: [series[0].legend, series[1].legend]
+            itemGap: 3,
+            bottom:5,
+            data: legends
         },
         xAxis: {
             data: labels,
             type: 'category',
             axisLabel: {
                 interval: 0,
-                rotate: 45,
+                rotate: 30,
                 margin: 2,
                 textStyle: {
                     color: "#222"
@@ -125,34 +156,15 @@ function build_collision_type_chart(chart, data) {
                 type: 'value',
                 name: series[1].legend,
                 min: 0,
-                max: Math.ceil((series[1].max * 1.1) / 100.0) * 100,
+                max: Math.ceil((series[1].max * 1.1) / 10.0) * 10,
                 axisLabel: {
                     formatter: '{value}'
                 },
                 splitLine: {
                     show: false,
-                },
-            }],
-        series: [{
-            name: series[0].legend,
-            type: 'bar',
-            data: series[0].data,
-
-        }, {
-            name: series[1].legend,
-            type: 'line',
-            yAxisIndex: 1,
-            data: series[1].data,
-            smooth: true,
-            lineStyle: {
-                normal: {
-                    width: 3,
-                    shadowColor: 'rgba(0,0,0,0.4)',
-                    shadowBlur: 10,
-                    shadowOffsetY: 10
                 }
-            },
-        }]
+            }],
+        series: series_data
     })
 }
 
@@ -162,9 +174,10 @@ function build_intersection_type_chart(chart, data) {
     if (series.length <= 1) return
     var legend_data = {
         x: 'right',
-        //bottom:10,
-        itemGap:3,
-        data: []}
+        itemGap: 3,
+        bottom:5,
+        data: []
+    }
     var yAxis_data = []
     var series_data = []
     for (var i = 0; i < series.length; i++) {
@@ -194,7 +207,6 @@ function build_intersection_type_chart(chart, data) {
                     shadowOffsetY: 10
                 }
             },
-
         })
     }
     chart.setOption({
@@ -204,7 +216,7 @@ function build_intersection_type_chart(chart, data) {
             type: 'category',
             axisLabel: {
                 interval: 0,
-                rotate: 45,
+                rotate: 30,
                 margin: 2,
                 textStyle: {
                     color: "#222"
@@ -242,7 +254,6 @@ function build_monthly_crash_chart(chart, data) {
             data: series[i].data,
             yAxisIndex: i == 0 ? 0 : 1,
             smooth: true,
-
             lineStyle: {
                 normal: {
                     width: 3,
@@ -250,8 +261,7 @@ function build_monthly_crash_chart(chart, data) {
                     shadowBlur: 10,
                     shadowOffsetY: 10
                 }
-            },
-
+            }
         })
     }
     chart.setOption({
@@ -348,7 +358,7 @@ function build_pie_bar_chart(chart, data) {
                 textStyle: {
                     color: '#000',
                     fontWeight: 'bold',
-                    fontSize:14
+                    fontSize: 14
                 }
             },
             series: series_data,
