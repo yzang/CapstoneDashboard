@@ -96,8 +96,8 @@ function offersMapInit(id, locations) {
         {
             textColor: 'black',
             url: '/static/assets/images/m3.png',
-            height: 70,
-            width: 70
+            height: 75,
+            width: 75
         }];
     var markerCluster = new MarkerClusterer(map, mapMarkers, {
 
