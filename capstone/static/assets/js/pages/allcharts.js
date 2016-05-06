@@ -337,7 +337,7 @@ function build_pie_bar_chart(chart, data) {
         yAxis: [
             {
                 type: 'value',
-                name: 'Crash Count',
+                name: 'Number of people',
                 max: Math.ceil((max_2 * 1.1) / 100.0) * 100,
                 splitLine: {show: false},
                 splitArea: {show: false},
