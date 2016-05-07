@@ -8,12 +8,18 @@ from django.views.decorators.csrf import csrf_exempt
 from capstone import dao
 
 
+
 def home(request):
     return render(request, 'crash_report.html', {})
 
+def uploadCrash(request):
+    return render(request, 'crash_upload.html', {})
 
-def upload(request):
-    return render(request, 'uploader.html', {})
+def uploadVehicle(request):
+    return render(request, 'vehicle_upload.html', {})
+
+def uploadPerson(request):
+    return render(request, 'person_upload.html', {})
 
 
 @csrf_exempt
@@ -206,3 +212,42 @@ def buildSerie(legend,data):
     return {'legend': legend,
             'max': max(data),
             'data': data}
+
+def crash_load(request):
+    temp = "./data_processing/crash/*"
+    os.system('rm ' + temp)
+    if request.method == 'POST':
+        form = MyForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = crashFile(docfile=request.FILES['docfile'])
+            file.save()
+            import_crash_csv(request.FILES['docfile'].name)
+        else:
+            return HttpResponse("Upload Failed.")
+    return HttpResponse("Upload Successful.")
+
+def vehicle_load(request):
+    temp = "./data_processing/vehicle/*"
+    os.system('rm ' + temp)
+    if request.method == 'POST':
+        form = MyForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = vehicleFile(docfile=request.FILES['docfile'])
+            file.save()
+            import_vehicle_csv(request.FILES['docfile'].name)
+        else:
+            return HttpResponse("Upload Failed.")
+    return HttpResponse("Upload Successful.")
+
+def person_load(request):
+    temp = "./data_processing/person/*"
+    os.system('rm ' + temp)
+    if request.method == 'POST':
+        form = MyForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = personFiles(docfile=request.FILES['docfile'])
+            file.save()
+            import_person_csv(request.FILES['docfile'].name)
+        else:
+            return HttpResponse("Upload Failed.")
+    return HttpResponse("Upload Successful.")
