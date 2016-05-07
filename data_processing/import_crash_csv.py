@@ -8,11 +8,11 @@ This file is used to load json data into the Django database
 '''
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CapstoneDashboard.settings'
 
-if __name__ == '__main__':
+def import_crash_csv(file):
     application = get_wsgi_application()
-    from capstone.models import *
-
-    with open("./Crash_All.csv", "rU") as infile:
+    from capstone.models import Crash
+    file_name = os.path.join("data_processing/crash/",file)
+    with open(file_name, "rU") as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         crash_list = []
