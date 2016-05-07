@@ -7,8 +7,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 from capstone import dao
 
-
-
 def home(request):
     return render(request, 'crash_report.html', {})
 
@@ -238,6 +236,15 @@ def vehicle_load(request):
         else:
             return HttpResponse("Upload Failed.")
     return HttpResponse("Upload Successful.")
+
+def clear_history():
+    person = "./data_processing/person/*"
+    os.system('rm ' + person)
+    vehicle = "./data_processing/vehicle/*"
+    os.system('rm ' + vehicle)
+    crash = "./data_processing/crash/*"
+    os.system('rm ' + crash)
+    return HttpResponse("Clear History Successful.")
 
 def person_load(request):
     temp = "./data_processing/person/*"
