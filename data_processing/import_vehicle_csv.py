@@ -8,18 +8,19 @@ This file is used to load json data into the Django database
 '''
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CapstoneDashboard.settings'
 
-if __name__ == '__main__':
+def import_vehicle_csv(file):
     application = get_wsgi_application()
-    from capstone.models import *
-    with open("./vehicle.csv", "rb") as infile:
+    from capstone.models import vehicle
+    file_name = os.path.join("data_processing/vehicle/", file)
+    with open(file_name, "rb") as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         vehicle_list = []
         for row in reader:
-            if not row or len(row) < 5:
+            if not row or len(row) < 3:
                 continue
-            crn, year, type, x, y = row
-            vehicle=Vehicle(crn=crn,year=year,type=type,X=x,Y=y)
+            crn, year, type = row
+            vehicle=Vehicle(crn=crn,year=year,type=type)
             vehicle_list.append(vehicle)
             print row
         Vehicle.objects.bulk_create(vehicle_list)
