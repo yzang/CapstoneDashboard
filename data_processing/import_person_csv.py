@@ -8,10 +8,11 @@ This file is used to load json data into the Django database
 '''
 os.environ['DJANGO_SETTINGS_MODULE'] = 'CapstoneDashboard.settings'
 
-if __name__ == '__main__':
+def import_person_csv(file):
     application = get_wsgi_application()
-    from capstone.models import *
-    with open("./person_final.csv", "rb") as infile:
+    from capstone.models import Person
+    file_name = os.path.join("data_processing/person/", file)
+    with open(file_name, "rb") as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         person_list=[]
