@@ -98,10 +98,7 @@ class Vehicle(models.Model):
     year=models.IntegerField()
     # VEHICLE TYPE
     type=models.CharField(max_length=30)
-    # X
-    X=models.FloatField()
-    # Y
-    Y=models.FloatField()
+
     
     def __str__(self):
         return self.crn
