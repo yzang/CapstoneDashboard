@@ -1,6 +1,8 @@
 from django.http import HttpResponse, QueryDict
 from django.shortcuts import render
 import json
+from capstone.forms import MyForm
+
 
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
