@@ -99,6 +99,14 @@ class Vehicle(models.Model):
     # VEHICLE TYPE
     type=models.CharField(max_length=30)
 
+class crashFile(models.Model):
+    docfile = models.FileField(upload_to='crash/')
+
+class vehicleFile(models.Model):
+     docfile = models.FileField(upload_to='vehicle/')
+
+class personFiles(models.Model):
+    docfile = models.FileField(upload_to='person/')
     
     def __str__(self):
         return self.crn
