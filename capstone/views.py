@@ -255,16 +255,13 @@ def clear_history(request):
     from capstone.models import Person
     person = "./data_processing/person/*"
     os.system('rm ' + person)
-    person_db = Person.objects
-    person_db.delete()
+    Person.objects.all().delete()
     vehicle = "./data_processing/vehicle/*"
     os.system('rm ' + vehicle)
-    vehicle_db = Vehicle.objects
-    vehicle_db.delete()
+    Vehicle.objects.all().delete()
     crash = "./data_processing/crash/*"
     os.system('rm ' + crash)
-    crash_db = Crash.objects
-    crash_db.delete()
+    Crash.objects.all().delete()
     return HttpResponse("Clear History Successful.")
 
 
