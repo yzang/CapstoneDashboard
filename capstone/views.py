@@ -237,7 +237,7 @@ def vehicle_load(request):
             return HttpResponse("Upload Failed.")
     return HttpResponse("Upload Successful.")
 
-def clear_history():
+def clear_history(request):
     from capstone.models import Crash
     from capstone.models import Vehicle
     from capstone.models import Person
