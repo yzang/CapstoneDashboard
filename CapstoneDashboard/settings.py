@@ -146,6 +146,6 @@ STATICFILES_DIRS = (
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-MEDIA_ROOT=BASE_DIR+'/media/'
+MEDIA_ROOT=os.path.join(PROJECT_ROOT, 'data_processing'),
 
-MEDIA_URL='/media/'
+MEDIA_URL='/data_processing/'
