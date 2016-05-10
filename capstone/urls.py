@@ -2,7 +2,6 @@ from django.conf.urls import url
 from capstone import views as capstone_view
 urlpatterns = [
     url(r'^$',capstone_view.home,name='home'),
-    url(r'^upload',capstone_view.upload,name='upload'),
     url(r'^upload crash',capstone_view.uploadCrash,name='upload crash'),
     url(r'^upload vehicle',capstone_view.uploadVehicle,name='upload vehicle'),
     url(r'^upload person',capstone_view.uploadPerson,name='upload person'),

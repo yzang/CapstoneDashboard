@@ -27,4 +27,4 @@ def import_vehicle_csv(dir,file):
     print "Load data complete"
 
 if __name__=='__main__':
-    import_vehicle_csv('vehicle/','vehicle_clean.csv')
+    import_vehicle_csv('./','vehicle_clean.csv')

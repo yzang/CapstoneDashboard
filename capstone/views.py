@@ -280,6 +280,3 @@ def person_load(request):
         else:
             return HttpResponse("Upload Failed.")
     return HttpResponse("Upload Successful.")
-
-def upload(request):
-    return render(request,'uploader.html',{})

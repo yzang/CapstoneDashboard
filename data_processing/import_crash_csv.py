@@ -36,4 +36,4 @@ def import_crash_csv(dir,file):
     print "Load data complete"
 
 if __name__=='__main__':
-    import_crash_csv('crash/','crash_clean.csv')
+    import_crash_csv('./','crash_clean.csv')

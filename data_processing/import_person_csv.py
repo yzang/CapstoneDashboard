@@ -27,4 +27,4 @@ def import_person_csv(dir,file):
     print "Load data complete"
 
 if __name__=='__main__':
-    import_person_csv('person/','person_clean.csv')
+    import_person_csv('./','person_clean.csv')
