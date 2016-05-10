@@ -225,26 +225,28 @@ def buildSerie(legend,data):
 
 def crash_load(request):
     temp = "./data_processing/crash/*"
+    dir="data_processing/crash/"
     os.system('rm ' + temp)
     if request.method == 'POST':
         form = MyForm(request.POST, request.FILES)
         if form.is_valid():
             file = crashFile(docfile=request.FILES['docfile'])
             file.save()
-            import_crash_csv(request.FILES['docfile'].name)
+            import_crash_csv(dir,request.FILES['docfile'].name)
         else:
             return HttpResponse("Upload Failed.")
     return HttpResponse("Upload Successful.")
 
 def vehicle_load(request):
     temp = "./data_processing/vehicle/*"
+    dir="data_processing/vehicle/"
     os.system('rm ' + temp)
     if request.method == 'POST':
         form = MyForm(request.POST, request.FILES)
         if form.is_valid():
             file = vehicleFile(docfile=request.FILES['docfile'])
             file.save()
-            import_vehicle_csv(request.FILES['docfile'].name)
+            import_vehicle_csv(dir,request.FILES['docfile'].name)
         else:
             return HttpResponse("Upload Failed.")
     return HttpResponse("Upload Successful.")
@@ -267,13 +269,17 @@ def clear_history(request):
 
 def person_load(request):
     temp = "./data_processing/person/*"
+    dir="data_processing/person/"
     os.system('rm ' + temp)
     if request.method == 'POST':
         form = MyForm(request.POST, request.FILES)
         if form.is_valid():
             file = personFiles(docfile=request.FILES['docfile'])
             file.save()
-            import_person_csv(request.FILES['docfile'].name)
+            import_person_csv(dir,request.FILES['docfile'].name)
         else:
             return HttpResponse("Upload Failed.")
     return HttpResponse("Upload Successful.")
+
+def upload(request):
+    return render(request,'uploader.html',{})
