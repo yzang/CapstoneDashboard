@@ -34,8 +34,7 @@ def uploadPerson(request):
 
 @csrf_exempt
 def getMajorFatal(request):
-    query_dict = request.POST
-    params = dict(query_dict.iterlists())
+    params = request.POST
     crashes = dao.getMajFatalCrash(params);
     list = []
     for crash in crashes:
@@ -49,8 +48,7 @@ def getMajorFatal(request):
 
 @csrf_exempt
 def getCrashByCollisionType(request):
-    query_dict = request.POST
-    params = dict(query_dict.iterlists())
+    params = request.POST
     dataset = dao.getCrashByCollisionType(params)
     labels = []
     total_crash = []
@@ -83,8 +81,7 @@ def getCrashByCollisionType(request):
 
 @csrf_exempt
 def getCrashByIntersectionType(request):
-    query_dict = request.POST
-    params = dict(query_dict.iterlists())
+    params = request.POST
     dataset = dao.getSeverityAndInterception(params)
     labels = []
     total_crash = []
@@ -126,8 +123,7 @@ def getCrashSeverityByMonth(request):
     ped_data = []
     motor_data = []
     bicycle_data = []
-    query_dict = request.POST
-    params = dict(query_dict.iterlists())
+    params = request.POST
     dataset = dao.getMonthlySeverity(params)
     for item in dataset:
         labels.append(str(item['year']) + '/' + str(item['month']))
@@ -154,7 +150,7 @@ def getCrashByVehicleAndAge(request):
     years = dao.getAllYears()
     total_age_data = dao.getPersonAge()
     total_vehicle_data = getVehicleType()
-    age_ranges = total_age_data.keys()
+    age_ranges = list(total_age_data.keys())
     age_ranges.sort(key=lambda x: x[0])
     person_types = dao.getAllPersonTypes()
     max1, max2 = 0, 0

@@ -31,9 +31,9 @@ def import_crash_csv(dir,file):
                           mcycle_sev_inj_count=mcycle_sev_inj_count,bicycle_death_count=bicycle_death_count, bicycle_sev_inj_count=bicycle_sev_inj_count,
                           ped_death_count=ped_death_count, max_severity_level=max_severity_level, lat=lat, lng=lng)
             crash_list.append(crash)
-            print row
+            print(row)
         Crash.objects.bulk_create(crash_list)
-    print "Load data complete"
+    print("Load data complete")
 
 if __name__=='__main__':
     import_crash_csv('./','crash_clean.csv')

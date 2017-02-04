@@ -22,9 +22,9 @@ def import_person_csv(dir,file):
             crn,year,sex,age,person_type,helmet=row
             person=Person(crn=crn,year=year,sex=sex,age=age,person_type=person_type,restraint_helmet=helmet)
             person_list.append(person)
-            print row
+            print(row)
         Person.objects.bulk_create(person_list)
-    print "Load data complete"
+    print("Load data complete")
 
 if __name__=='__main__':
     import_person_csv('./','person_clean.csv')
