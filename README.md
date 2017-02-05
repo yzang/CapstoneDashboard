@@ -93,3 +93,26 @@ Download or clone the code from github: <https://github.com/zym242/CapstoneDashb
 Configure the apache server for django:
 
 [*https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/modwsgi/*](https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/modwsgi/)
+
+## Development
+
+To run this app locally with Python 3:
+
+```
+git clone https://github.com/CityOfPhiladelphia/crash-analysis-dashboard
+cd crash-analysis-dashboard
+python -m venv venv
+source ./env/bin/activate
+pip install -r requirements.txt
+python manage.py runserver
+```
+
+Running `runserver` will create an empty SQLite database in the same directory called `db.sqlite3`. Stop the server and create all tables with `python manage.py migrate`.
+
+Next, you'll need to populate the database. There are three CSV files in `data_processing/` which you can use for testing:
+
+* crash_clean.csv
+* person_clean.csv
+* vehicle_clean.csv
+
+Start the server again, navigate to `http://localhost:8000`, and load the data using the import tools in the main menu.
