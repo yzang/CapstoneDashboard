@@ -12,7 +12,7 @@ def import_person_csv(dir,file):
     application = get_wsgi_application()
     from capstone.models import Person
     file_name = os.path.join(dir, file)
-    with open(file_name, "rb") as infile:
+    with open(file_name, 'r') as infile:
         reader = csv.reader(infile)
         next(reader, None)  # skip the headers
         person_list=[]
