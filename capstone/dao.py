@@ -9,16 +9,16 @@ def getFilteredCrash(params):
     if params is None:
         return crash
     if params.get('year_from') and params.get('year_to'):
-        crash = crash.filter(year__gte=params.get('year_from')[0], year__lte=params.get('year_to')[0])
+        crash = crash.filter(year__gte=params.get('year_from'), year__lte=params.get('year_to'))
     if params.get('month_from') and params.get('month_to'):
-        crash = crash.filter(month__gte=params.get('month_from')[0], month__lte=params.get('month_to')[0])
+        crash = crash.filter(month__gte=params.get('month_from'), month__lte=params.get('month_to'))
     if params.get('day_from') and params.get('day_to'):
-        crash = crash.filter(day__gte=params.get('day_from')[0], day__lte=params.get('day_to')[0])
+        crash = crash.filter(day__gte=params.get('day_from'), day__lte=params.get('day_to'))
     if params.get('hour_from') and params.get('hour_to'):
-        crash = crash.filter(hour__gte=params.get('hour_from')[0], hour__lte=params.get('hour_to')[0])
-    if params.get('injury_options[]') and params.get('injury_options[]')[0]:
+        crash = crash.filter(hour__gte=params.get('hour_from'), hour__lte=params.get('hour_to'))
+    if params.get('injury_options[]') and params.get('injury_options[]'):
         crash = crash.filter(max_severity_level__in=params.get('injury_options[]'))
-    if params.get('collision_options[]') and params.get('collision_options[]')[0]:
+    if params.get('collision_options[]') and params.get('collision_options[]'):
         crash = crash.filter(collision_type__in=params.get('collision_options[]'))
     return crash
 
@@ -99,16 +99,16 @@ def getPersonAge(year=-1):
 
 def getAllYears():
     years_data=Crash.objects.values('year').distinct()
-    years=map(lambda x:x['year'],years_data)
+    years = [x['year'] for x in years_data]
     years.sort()
     return years
 
 def getAllPersonTypes():
     person_type_data=Person.objects.values('person_type').distinct().order_by()
-    person_types=map(lambda x:x['person_type'],person_type_data)
+    person_types = [x['person_type'] for x in person_type_data]
     return person_types
 
 def getAllCollisionTypes():
     collision_types=Crash.objects.values('collision_type').distinct().order_by()
-    collision_types=map(lambda x:x['collision_type'],collision_types)
+    collision_types=[x['collision_type'] for x in collision_types]
     return collision_types

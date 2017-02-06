@@ -115,9 +115,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Update database configuration with $DATABASE_URL.
-#db_from_env = dj_database_url.config(conn_max_age=500)
-#DATABASES['default'].update(db_from_env)
+# Parse database configuration from $DATABASE_URL
+if os.environ.get('DATABASE_URL'):
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
